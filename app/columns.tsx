@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef, RowExpanding } from "@tanstack/react-table";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, Link2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+
+import { FullDescription } from "@/components/FullDescription";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -37,6 +39,17 @@ import { isWithinRange } from "@/lib/filterFns";
 
 export const columns: ColumnDef<Position>[] = [
   {
+    id: "link",
+    cell: ({ row }) => {
+      const position = row.original;
+      return (
+        <Link href={position.url} className="inline-flex size-12 rounded-md justify-center items-center hover:bg-accent">
+          <Link2 className="size-8"/>
+        </Link>
+      )
+    }
+  },
+  {
     accessorKey: "positionName",
     header: ({ column }) => {
       return (
@@ -49,12 +62,13 @@ export const columns: ColumnDef<Position>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
       const position = row.original;
       return (
-        <Link href={position.url} className="text-blue-800 visited:text-purple-700 underline">
-          {position.positionName}
-        </Link>
+        <>
+          <Link href={`?fullDesc=true&rowID=${row.id}`} className="rounded-md hover:bg-accent p-4">{position.positionName}</Link>
+          <FullDescription table={table}/>
+        </>
       );
     },
   },

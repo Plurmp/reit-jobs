@@ -15,6 +15,7 @@ import {
 } from "@tanstack/react-table";
 
 import { ChevronDown } from "lucide-react";
+import Link from "next/link"
 
 import {
   Table,
@@ -35,6 +36,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { FullDescription } from "./FullDescription";
 
 interface ICompanyInfo {
   [key: string]: {
@@ -43,7 +45,7 @@ interface ICompanyInfo {
   };
 }
 import _companyInfo from "@/companyInfo.json";
-const companyInfo = _companyInfo as ICompanyInfo;
+export const companyInfo = _companyInfo as ICompanyInfo;
 
 import { companyFullName } from "@/lib/utils";
 import { isWithinRange } from "@/lib/filterFns";
@@ -272,19 +274,21 @@ export function DataTable<TData, TValue>({
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
+                  <>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </>
                 ))
               ) : (
                 <TableRow>

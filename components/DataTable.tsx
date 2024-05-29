@@ -102,7 +102,7 @@ export function DataTable<TData, TValue>({
           placeholder="Filter all..."
           value={globalFilter ?? ""}
           onChange={(event) => setGlobalFilter(event.target.value)}
-          className="max-w-lg focus-visible:ring-offset-blue-900 focus-visible:ring-gray-200"
+          className="w-1/2 focus-visible:ring-offset-blue-900 focus-visible:ring-gray-200"
         />
         <div className="flex gap-2">
           <div className="flex items-center justify-center text-sm font-medium text-gray-200">

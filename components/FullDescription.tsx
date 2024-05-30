@@ -12,12 +12,12 @@ interface FullDescriptionProps<TData> {
 
 export function FullDescription<TData>({ table }: FullDescriptionProps<TData>) {
     const searchParams = useSearchParams();
+    const pathname = usePathname();
     const modal = searchParams.get("fullDesc");
     const rowID = searchParams.get("rowID");
     if (!rowID) {
         return "";
     }
-    const pathname = usePathname();
 
     const row = table.getCoreRowModel().rowsById[rowID]
 
@@ -28,7 +28,7 @@ export function FullDescription<TData>({ table }: FullDescriptionProps<TData>) {
     return (
         <>
             {modal &&
-                <dialog className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto flex justify-center items-center transition-all">
+                <dialog className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto flex justify-center items-center">
                     <div className="bg-white m-auto p-8 rounded-xl size-5/6 overflow-auto bg-opacity-100">
                         <div className="flex flex-col items-center gap-5">
                             <Link href={pathname} className="flex w-full justify-end"><CircleX className="size-12"/></Link>

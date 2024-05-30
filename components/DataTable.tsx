@@ -29,14 +29,11 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FullDescription } from "./FullDescription";
 
 interface ICompanyInfo {
   [key: string]: {
@@ -140,6 +137,7 @@ export function DataTable<TData, TValue>({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="overflow-auto max-h-96">
               <DropdownMenuItem
+                key='clearPosition'
                 onClick={() => table.getColumn("positionName")?.setFilterValue("")}
               >
                 <i>[Clear selection]</i>
@@ -148,9 +146,9 @@ export function DataTable<TData, TValue>({
               {
                 Array.from(new Set(table.getCoreRowModel().rows.map((row) => row.getValue("positionName") as string)))
                   .sort()
-                  .map((positionFilter) =>
+                  .map((positionFilter, i) =>
                     <DropdownMenuItem
-                      key={positionFilter}
+                      key={i}
                       onClick={() =>
                         table.getColumn("positionName")?.setFilterValue(positionFilter)
                       }
@@ -174,6 +172,7 @@ export function DataTable<TData, TValue>({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="overflow-auto max-h-96">
               <DropdownMenuItem
+                key={"clearCompany"}
                 onClick={() => table.getColumn("companyName")?.setFilterValue("")}
               >
                 <i>[Clear selection]</i>
@@ -182,9 +181,9 @@ export function DataTable<TData, TValue>({
               {
                 Array.from(new Set(table.getCoreRowModel().rows.map((row) => row.getValue("companyName") as string)))
                   .sort()
-                  .map((companyFilter) =>
+                  .map((companyFilter, i) =>
                     <DropdownMenuItem
-                      key={companyFilter}
+                      key={i}
                       onClick={() =>
                         table.getColumn("companyName")?.setFilterValue(companyFilter)
                       }
@@ -204,6 +203,7 @@ export function DataTable<TData, TValue>({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="overflow-auto max-h-96">
               <DropdownMenuItem
+                key={"clearLocation"}
                 onClick={() => table.getColumn("location")?.setFilterValue("")}
               >
                 <i>[Clear selection]</i>
@@ -212,9 +212,9 @@ export function DataTable<TData, TValue>({
               {
                 Array.from(new Set(table.getCoreRowModel().rows.flatMap((row) => row.getValue("location") as string[])))
                   .sort()
-                  .map((locationFilter) =>
+                  .map((locationFilter, i) =>
                     <DropdownMenuItem
-                      key={locationFilter}
+                      key={i}
                       onClick={() =>
                         table.getColumn("location")?.setFilterValue(locationFilter)
                       }
@@ -234,14 +234,16 @@ export function DataTable<TData, TValue>({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="overflow-auto max-h-96">
               <DropdownMenuItem
+                key={"clearDate"}
                 onClick={() => table.getColumn("publishDate")?.setFilterValue("")}
               >
                 <i>[Clear Selection]</i>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               {
-                dateFilters.map((dateFilter) =>
+                dateFilters.map((dateFilter, i) =>
                   <DropdownMenuItem
+                    key={i}
                     onClick={() => table.getColumn("publishDate")?.setFilterValue(dateFilter)}
                   >
                     {dateFilter}
@@ -274,25 +276,24 @@ export function DataTable<TData, TValue>({
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <>
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
                 ))
               ) : (
                 <TableRow>
                   <TableCell
+                    key={"noResults"}
                     colSpan={columns.length}
                     className="h-24 text-center"
                   >

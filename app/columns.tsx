@@ -36,6 +36,7 @@ import _companyInfo from "@/companyInfo.json";
 const companyInfo = _companyInfo as ICompanyInfo;
 
 import { isWithinRange } from "@/lib/filterFns";
+import Image from "next/image";
 
 export const columns: ColumnDef<Position>[] = [
   {

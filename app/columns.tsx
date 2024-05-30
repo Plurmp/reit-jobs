@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import Image from "next/image";
 
 import { FullDescription } from "@/components/FullDescription";
 
@@ -88,7 +89,7 @@ export const columns: ColumnDef<Position>[] = [
             src={"/img/logos/" + logo}
             alt={companyInfo[companyName].fullName + " logo"}
             title={companyInfo[companyName].fullName + " logo"}
-            className="object-contain max-h-10"
+            className="h-10 w-auto justify-self-center"
           />
         </div>
       );
@@ -128,9 +129,13 @@ export const columns: ColumnDef<Position>[] = [
     },
     cell: ({ row }) => {
       const locations: string[] | undefined = row.getValue("location");
-      return (
-        <div>{locations?.join("<br>") ?? ""}</div>
-      );
+      if (!locations) {
+        return (<div>{""}</div>);
+      } else if (locations.length === 1) {
+        return (<div>{locations[0]}</div>);
+      } else {
+        return (<div>{`${locations[0]} and ${locations.length - 1} other(s)`}</div>)
+      }
     }
   },
   {

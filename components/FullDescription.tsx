@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import { Table } from "@tanstack/react-table";
 import { CircleX } from "lucide-react";
 import Link from "next/link";

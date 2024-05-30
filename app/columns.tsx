@@ -36,7 +36,8 @@ import _companyInfo from "@/companyInfo.json";
 const companyInfo = _companyInfo as ICompanyInfo;
 
 import { isWithinRange } from "@/lib/filterFns";
-import Image from "next/image";
+
+import { Suspense } from "react";
 
 export const columns: ColumnDef<Position>[] = [
   {
@@ -68,7 +69,9 @@ export const columns: ColumnDef<Position>[] = [
       return (
         <>
           <Link href={`?fullDesc=true&rowID=${row.id}`} className="rounded-md hover:bg-accent p-4">{position.positionName}</Link>
-          <FullDescription table={table}/>
+          <Suspense>
+            <FullDescription table={table}/>
+          </Suspense>
         </>
       );
     },

@@ -18,5 +18,13 @@
     "PLD": {
         "fullName": "Prologis",
         "logo": "PLD.svg"
+    },
+    "EQR": {
+        "fullName": "Equity Residential",
+        "logo": "EQR.svg"
+    },
+    "SPG": {
+        "fullName": "Simon Property Group",
+        "logo": "SPG.svg"
     }
 }

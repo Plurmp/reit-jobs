@@ -69,7 +69,7 @@ export const columns: ColumnDef<Position>[] = [
       const position = row.original;
       return (
         <>
-          <Link href={`?fullDesc=true&rowID=${row.id}`} className="rounded-md hover:bg-accent p-4">{position.positionName}</Link>
+          <Link href={`?fullDesc=true&rowID=${row.id}`} className="rounded-md hover:bg-accent p-4 font-bold">{position.positionName}</Link>
           <Suspense>
             <FullDescription table={table}/>
           </Suspense>

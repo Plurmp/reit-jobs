@@ -36,7 +36,7 @@ interface ICompanyInfo {
 import _companyInfo from "@/companyInfo.json";
 const companyInfo = _companyInfo as ICompanyInfo;
 
-import { isWithinRange } from "@/lib/filterFns";
+import { isWithinRange, locationFilter } from "@/lib/filterFns";
 
 import { Suspense } from "react";
 
@@ -69,7 +69,13 @@ export const columns: ColumnDef<Position>[] = [
       const position = row.original;
       return (
         <>
-          <Link href={`?fullDesc=true&rowID=${row.id}`} className="rounded-md hover:bg-accent p-4 font-bold">{position.positionName}</Link>
+          <Link 
+            href={`?fullDesc=true&rowID=${row.id}`}
+          >
+            <div className="rounded-md hover:bg-accent p-4 font-bold">
+              {position.positionName}
+            </div>
+          </Link>
           <Suspense>
             <FullDescription table={table}/>
           </Suspense>
@@ -136,7 +142,8 @@ export const columns: ColumnDef<Position>[] = [
       } else {
         return (<div>{`${locations[0]} and ${locations.length - 1} other(s)`}</div>)
       }
-    }
+    },
+    filterFn: locationFilter,
   },
   {
     accessorKey: "publishDate",

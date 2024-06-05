@@ -45,7 +45,7 @@ import _companyInfo from "@/companyInfo.json";
 export const companyInfo = _companyInfo as ICompanyInfo;
 
 import { companyFullName } from "@/lib/utils";
-import { isWithinRange } from "@/lib/filterFns";
+import { isWithinRange, locationFilter } from "@/lib/filterFns";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -77,6 +77,7 @@ export function DataTable<TData, TValue>({
     columns,
     filterFns: {
       'isWithinRange': isWithinRange,
+      'locationFilter': locationFilter
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -144,7 +145,7 @@ export function DataTable<TData, TValue>({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               {
-                Array.from(new Set(table.getCoreRowModel().rows.map((row) => row.getValue("positionName") as string)))
+                Array.from(new Set(table.getFilteredRowModel().rows.map((row) => row.getValue("positionName") as string)))
                   .sort()
                   .map((positionFilter, i) =>
                     <DropdownMenuItem
@@ -179,7 +180,7 @@ export function DataTable<TData, TValue>({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               {
-                Array.from(new Set(table.getCoreRowModel().rows.map((row) => row.getValue("companyName") as string)))
+                Array.from(new Set(table.getFilteredRowModel().rows.map((row) => row.getValue("companyName") as string)))
                   .sort()
                   .map((companyFilter, i) =>
                     <DropdownMenuItem
@@ -210,7 +211,7 @@ export function DataTable<TData, TValue>({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               {
-                Array.from(new Set(table.getCoreRowModel().rows.flatMap((row) => row.getValue("location") as string[])))
+                Array.from(new Set(table.getFilteredRowModel().rows.flatMap((row) => row.getValue("location") as string[])))
                   .sort()
                   .map((locationFilter, i) =>
                     <DropdownMenuItem

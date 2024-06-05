@@ -15,7 +15,7 @@ import {
 } from "@tanstack/react-table";
 
 import { ChevronDown } from "lucide-react";
-import Link from "next/link"
+import Link from "next/link";
 
 import {
   Table,
@@ -104,8 +104,22 @@ export function DataTable<TData, TValue>({
         />
         <div className="flex gap-2">
           <div className="flex items-center justify-center text-sm font-medium text-gray-200">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
+            {/* Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()} */}
+            Page 
+            <Input 
+              placeholder={(table.getState().pagination.pageIndex + 1).toString()}
+              type="number"
+              // value={table.getState().pagination.pageIndex + 1}
+              onChange={(event) => {
+                if (Number.isNaN(parseInt(event.target.value) - 1)) {
+                  return;
+                } else {
+                  table.setPageIndex(parseInt(event.target.value) - 1)}
+                }
+              }
+              className="text-black w-16 mx-2"
+            />
+            of {table.getPageCount()}
           </div>
           <div className="flex items-center justify-end space-x-2">
             <Button

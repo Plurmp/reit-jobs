@@ -140,7 +140,7 @@ export const columns: ColumnDef<Position>[] = [
       } else if (locations.length === 1) {
         return (<div>{locations[0]}</div>);
       } else {
-        return (<div>{`${locations[0]} and ${locations.length - 1} other(s)`}</div>)
+        return (<div>{locations[0]} <b>and {locations.length - 1} other{locations.length > 2 ? "(s)" : ""}</b></div>)
       }
     },
     filterFn: locationFilter,

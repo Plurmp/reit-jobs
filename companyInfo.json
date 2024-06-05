@@ -5,14 +5,26 @@
     },
     "AIV": {
         "fullName": "Aimco",
-        "logo": "AIV.png"
+        "logo": "AIV.svg"
     },
     "AVB": {
         "fullName": "AvalonBay Communities",
-        "logo": "AVB.jpg"
+        "logo": "AVB.svg"
     },
     "AMT": {
         "fullName": "American Tower Corporation",
-        "logo": "AMT.png"
+        "logo": "AMT.svg"
+    },
+    "PLD": {
+        "fullName": "Prologis",
+        "logo": "PLD.svg"
+    },
+    "EQR": {
+        "fullName": "Equity Residential",
+        "logo": "EQR.svg"
+    },
+    "SPG": {
+        "fullName": "Simon Property Group",
+        "logo": "SPG.svg"
     }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef, RowExpanding } from "@tanstack/react-table";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, Link2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +12,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import Image from "next/image";
+
+import { FullDescription } from "@/components/FullDescription";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -35,7 +38,20 @@ const companyInfo = _companyInfo as ICompanyInfo;
 
 import { isWithinRange } from "@/lib/filterFns";
 
+import { Suspense } from "react";
+
 export const columns: ColumnDef<Position>[] = [
+  {
+    id: "link",
+    cell: ({ row }) => {
+      const position = row.original;
+      return (
+        <Link href={position.url} className="inline-flex size-12 rounded-md justify-center items-center hover:bg-accent">
+          <Link2 className="size-8"/>
+        </Link>
+      )
+    }
+  },
   {
     accessorKey: "positionName",
     header: ({ column }) => {
@@ -49,12 +65,15 @@ export const columns: ColumnDef<Position>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
       const position = row.original;
       return (
-        <Link href={position.url} className="text-blue-800 visited:text-purple-700 underline">
-          {position.positionName}
-        </Link>
+        <>
+          <Link href={`?fullDesc=true&rowID=${row.id}`} className="rounded-md hover:bg-accent p-4 font-bold">{position.positionName}</Link>
+          <Suspense>
+            <FullDescription table={table}/>
+          </Suspense>
+        </>
       );
     },
   },
@@ -70,7 +89,7 @@ export const columns: ColumnDef<Position>[] = [
             src={"/img/logos/" + logo}
             alt={companyInfo[companyName].fullName + " logo"}
             title={companyInfo[companyName].fullName + " logo"}
-            className="object-contain max-h-10"
+            className="h-10 w-auto justify-self-center"
           />
         </div>
       );
@@ -110,9 +129,13 @@ export const columns: ColumnDef<Position>[] = [
     },
     cell: ({ row }) => {
       const locations: string[] | undefined = row.getValue("location");
-      return (
-        <div>{locations?.join("<br>") ?? ""}</div>
-      );
+      if (!locations) {
+        return (<div>{""}</div>);
+      } else if (locations.length === 1) {
+        return (<div>{locations[0]}</div>);
+      } else {
+        return (<div>{`${locations[0]} and ${locations.length - 1} other(s)`}</div>)
+      }
     }
   },
   {
@@ -129,6 +152,8 @@ export const columns: ColumnDef<Position>[] = [
       );
     },
     cell: ({ row }) => {
+      const dateStr = row.getValue("publishDate");
+      if (dateStr === "") return <div>None</div>;
       const date = new Date(row.getValue("publishDate"));
       const formatted = date.toLocaleDateString();
       return <div>{formatted}</div>;

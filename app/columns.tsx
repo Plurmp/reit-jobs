@@ -152,6 +152,8 @@ export const columns: ColumnDef<Position>[] = [
       );
     },
     cell: ({ row }) => {
+      const dateStr = row.getValue("publishDate");
+      if (dateStr === "") return <div>None</div>;
       const date = new Date(row.getValue("publishDate"));
       const formatted = date.toLocaleDateString();
       return <div>{formatted}</div>;

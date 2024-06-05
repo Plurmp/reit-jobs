@@ -26,5 +26,25 @@
     "SPG": {
         "fullName": "Simon Property Group",
         "logo": "SPG.svg"
+    },
+    "WELL": {
+        "fullName": "Welltower",
+        "logo": "WELL.svg"
+    },
+    "O": {
+        "fullName": "Realty Income Corporation",
+        "logo": "O.png"
+    },
+    "KIM": {
+        "fullName": "Kimco Realty",
+        "logo": "KIM.svg"
+    },
+    "VTR": {
+        "fullName": "Ventas",
+        "logo": "VTR.svg"
+    },
+    "UDR": {
+        "fullName": "UDR Apartments",
+        "logo": "UDR.svg"
     }
 }

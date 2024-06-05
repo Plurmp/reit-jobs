@@ -32,9 +32,9 @@ export function FullDescription({ table }: FullDescriptionProps) {
         <>
             {modal &&
                 <dialog className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-auto flex justify-center items-center">
-                    <div className="bg-white m-auto p-8 rounded-xl size-5/6 overflow-auto bg-opacity-100">
+                    <div className="bg-white m-auto p-8 rounded-xl size-5/6 overflow-auto">
                         <div className="flex flex-col items-center gap-5">
-                            <Link href={pathname} className="flex w-full justify-end"><CircleX className="size-12 hover:bg-accent rounded-md"/></Link>
+                            <Link href={pathname} className="flex w-full justify-end"><CircleX className="size-12 bg-white hover:bg-accent rounded-md fixed"/></Link>
                             <img src={`/img/logos/${logo}`} alt={`${companyFullName} logo`} className="max-h-32"/>
                             <h1 className="font-bold text-3xl">{row.positionName as string ?? ""}</h1>
                             <h2 className="font-semibold">{`Company: ${companyFullName}`}</h2>

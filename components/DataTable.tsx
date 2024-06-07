@@ -118,7 +118,7 @@ export function DataTable<TData, TValue>({
                   table.setPageIndex(parseInt(event.target.value) - 1)}
                 }
               }
-              className="text-black w-16 mx-2"
+              className="text-black w-16 mx-2 page-number"
             />
             of {table.getPageCount()}
           </div>
@@ -342,6 +342,46 @@ export function DataTable<TData, TValue>({
           </Table>
         </div>
       </div>
+      <div className="flex gap-2 justify-end">
+          <div className="flex items-center justify-center text-sm font-medium text-gray-200">
+            {/* Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()} */}
+            Page 
+            <Input
+              placeholder={(table.getState().pagination.pageIndex + 1).toString()}
+              type="number"
+              // value={table.getState().pagination.pageIndex + 1}
+              onChange={(event) => {
+                if (Number.isNaN(parseInt(event.target.value) - 1)) {
+                  table.setPageIndex(0);
+                } else {
+                  table.setPageIndex(parseInt(event.target.value) - 1)}
+                }
+              }
+              className="text-black w-16 mx-2 page-number"
+            />
+            of {table.getPageCount()}
+          </div>
+          <div className="flex items-center justify-end space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                table.previousPage()
+              }}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
     </div>
   );
 }

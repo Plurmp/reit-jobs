@@ -80,10 +80,10 @@
       @apply bg-gradient-to-r from-blue-400 to-blue-200;
     }
     .bg-bronze {
-      @apply bg-gradient-to-r from-amber-700 to-amber-500;
+      @apply bg-gradient-to-r from-amber-700 to-amber-500 text-white;
     }
     .bg-silver {
-      @apply bg-gradient-to-r from-neutral-600 to-neutral-400;
+      @apply bg-gradient-to-r from-slate-700 to-slate-500 text-white;
     }
     .bg-gold {
       @apply bg-gradient-to-r from-amber-500 to-amber-300;
@@ -95,6 +95,6 @@
       @apply bg-gradient-to-r from-violet-600 to-violet-400;
     }
     .bg-sponsor-color {
-      @apply bg-white data-[sponsor=n0]:bg-partner data-[sponsor=n1]:bg-bronze data-[sponsor=n2]:bg-silver data-[sponsor=n3]:bg-gold data-[sponsor=n4]:bg-platinum data-[sponsor=n5]:bg-medallion
+      @apply bg-white data-[sponsor=n0]:bg-partner data-[sponsor=n1]:bg-bronze data-[sponsor=n2]:bg-silver data-[sponsor=n3]:bg-gold data-[sponsor=n4]:bg-platinum data-[sponsor=n5]:bg-medallion;
     }
   }

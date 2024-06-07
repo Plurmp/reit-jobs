@@ -282,7 +282,7 @@ export function DataTable<TData, TValue>({
                   </div>
                 )
               })
-              .toReversed()
+              .reverse()
           }
           <div className="rounded-md h-8 mb-2 text-center font-semibold content-center bg-sponsor-color">
             Industry

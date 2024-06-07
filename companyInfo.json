@@ -5,46 +5,57 @@
     },
     "AIV": {
         "fullName": "Aimco",
-        "logo": "AIV.svg"
+        "logo": "AIV.svg",
+        "sponsorLevel": 0
     },
     "AVB": {
         "fullName": "AvalonBay Communities",
-        "logo": "AVB.svg"
+        "logo": "AVB.svg",
+        "sponsorLevel": 0
     },
     "AMT": {
         "fullName": "American Tower Corporation",
-        "logo": "AMT.svg"
+        "logo": "AMT.svg",
+        "sponsorLevel": 1
     },
     "PLD": {
         "fullName": "Prologis",
-        "logo": "PLD.svg"
+        "logo": "PLD.svg",
+        "sponsorLevel": 1
     },
     "EQR": {
         "fullName": "Equity Residential",
-        "logo": "EQR.svg"
+        "logo": "EQR.svg",
+        "sponsorLevel": 2
     },
     "SPG": {
         "fullName": "Simon Property Group",
-        "logo": "SPG.svg"
+        "logo": "SPG.svg",
+        "sponsorLevel": 2
     },
     "WELL": {
         "fullName": "Welltower",
-        "logo": "WELL.svg"
+        "logo": "WELL.svg",
+        "sponsorLevel": 3
     },
     "O": {
         "fullName": "Realty Income Corporation",
-        "logo": "O.png"
+        "logo": "O.png",
+        "sponsorLevel": 3
     },
     "KIM": {
         "fullName": "Kimco Realty",
-        "logo": "KIM.svg"
+        "logo": "KIM.svg",
+        "sponsorLevel": 4
     },
     "VTR": {
         "fullName": "Ventas",
-        "logo": "VTR.svg"
+        "logo": "VTR.svg",
+        "sponsorLevel": 5
     },
     "UDR": {
         "fullName": "UDR Apartments",
-        "logo": "UDR.svg"
+        "logo": "UDR.svg",
+        "sponsorLevel": 5
     }
 }

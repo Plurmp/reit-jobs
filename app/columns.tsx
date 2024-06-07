@@ -27,18 +27,29 @@ export type Position = {
   publishDate?: Date;
 };
 
+export enum SponsorLevel {
+  Partner,
+  Bronze,
+  Silver,
+  Gold,
+  Platinum,
+  Medallion,
+}
+
 interface ICompanyInfo {
   [key: string]: {
-    fullName: string;
-    logo: string;
+    fullName: string,
+    logo: string,
+    sponsorLevel?: SponsorLevel,
   };
 }
 import _companyInfo from "@/companyInfo.json";
-const companyInfo = _companyInfo as ICompanyInfo;
+export const companyInfo = _companyInfo as ICompanyInfo;
 
 import { isWithinRange, locationFilter } from "@/lib/filterFns";
 
 import { Suspense } from "react";
+import { sponsorSort } from "@/lib/sortingFns";
 
 export const columns: ColumnDef<Position>[] = [
   {
@@ -46,7 +57,7 @@ export const columns: ColumnDef<Position>[] = [
     cell: ({ row }) => {
       const position = row.original;
       return (
-        <Link href={position.url} className="inline-flex size-12 rounded-md justify-center items-center hover:bg-accent">
+        <Link href={position.url} className="inline-flex size-12 rounded-md justify-center items-center hover:bg-accent/50 transition-colors">
           <Link2 className="size-8"/>
         </Link>
       )
@@ -72,7 +83,7 @@ export const columns: ColumnDef<Position>[] = [
           <Link 
             href={`?fullDesc=true&rowID=${row.id}`}
           >
-            <div className="rounded-md hover:bg-accent p-4 font-bold">
+            <div className="rounded-md hover:bg-accent/50 p-4 font-bold transition-colors">
               {position.positionName}
             </div>
           </Link>
@@ -95,7 +106,7 @@ export const columns: ColumnDef<Position>[] = [
             src={"/img/logos/" + logo}
             alt={companyInfo[companyName].fullName + " logo"}
             title={companyInfo[companyName].fullName + " logo"}
-            className="h-10 w-auto justify-self-center"
+            className="h-10 object-contain justify-self-center"
           />
         </div>
       );
@@ -119,6 +130,7 @@ export const columns: ColumnDef<Position>[] = [
       const fullName = companyInfo[companyName].fullName;
       return <div>{fullName ?? ""}</div>;
     },
+    sortingFn: sponsorSort,
   },
   {
     accessorKey: "location",
@@ -140,7 +152,17 @@ export const columns: ColumnDef<Position>[] = [
       } else if (locations.length === 1) {
         return (<div>{locations[0]}</div>);
       } else {
-        return (<div>{locations[0]} <b>and {locations.length - 1} other{locations.length > 2 ? "(s)" : ""}</b></div>)
+        return (
+          <div>
+            {locations[0]} 
+            <Link 
+              href={`?fullDesc=true&rowID=${row.id}`}
+              className="font-semibold"
+            >
+              {" "} and {locations.length - 1} other{locations.length > 2 ? "(s)" : ""}
+            </Link>
+          </div>
+        )
       }
     },
     filterFn: locationFilter,

@@ -12,6 +12,7 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
   useReactTable,
+  PaginationState,
 } from "@tanstack/react-table";
 
 import { ChevronDown } from "lucide-react";
@@ -35,17 +36,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-interface ICompanyInfo {
-  [key: string]: {
-    fullName: string;
-    logo: string;
-  };
-}
-import _companyInfo from "@/companyInfo.json";
-export const companyInfo = _companyInfo as ICompanyInfo;
+import { companyInfo, SponsorLevel } from "@/app/columns";
 
 import { companyFullName } from "@/lib/utils";
 import { isWithinRange, locationFilter } from "@/lib/filterFns";
+import { sponsorSort } from "@/lib/sortingFns";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -56,11 +51,12 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([{ id: "positionName", desc: false }]);
+  const [sorting, setSorting] = React.useState<SortingState>([{id: "companyName", desc: true}]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
   const [globalFilter, setGlobalFilter] = React.useState("");
+  const [pagination, setPagination] = React.useState<PaginationState>({pageIndex: 0, pageSize: 25});
 
   const dateFilters = [
     "Past day",
@@ -79,6 +75,9 @@ export function DataTable<TData, TValue>({
       'isWithinRange': isWithinRange,
       'locationFilter': locationFilter
     },
+    sortingFns: {
+      "sponsorSort": sponsorSort
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -86,16 +85,18 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       globalFilter,
+      pagination,
     },
   });
 
   return (
     <div className="px-4 py-4">
-      <div className="flex justify-between">
+      <div className="flex flex-col md:flex-row md:justify-between">
         <Input
           placeholder="Filter all..."
           value={globalFilter ?? ""}
@@ -112,7 +113,7 @@ export function DataTable<TData, TValue>({
               // value={table.getState().pagination.pageIndex + 1}
               onChange={(event) => {
                 if (Number.isNaN(parseInt(event.target.value) - 1)) {
-                  return;
+                  table.setPageIndex(0);
                 } else {
                   table.setPageIndex(parseInt(event.target.value) - 1)}
                 }
@@ -267,12 +268,31 @@ export function DataTable<TData, TValue>({
               }
             </DropdownMenuContent>
           </DropdownMenu>
+          {
+            (Object.keys(SponsorLevel) as Array<string>)
+              .filter((el) => isNaN(Number(el)))
+              .map((level, num) => {
+                return (
+                  <div
+                    key={num}
+                    data-sponsor={"n" + num}
+                    className="rounded-md h-8 mb-2 text-center font-semibold content-center bg-sponsor-color"
+                  >
+                    {level}
+                  </div>
+                )
+              })
+              .toReversed()
+          }
+          <div className="rounded-md h-8 mb-2 text-center font-semibold content-center bg-sponsor-color">
+            Industry
+          </div>
         </div>
-        <div className="rounded-md border w-full h-fit bg-white opacity-90 shadow-lg">
+        <div className="rounded-md border w-full h-fit opacity-90 shadow-lg">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
+                <TableRow key={headerGroup.id} className="bg-white">
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id}>
@@ -294,6 +314,8 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    data-sponsor={"n" + companyInfo[row.getValue("companyName") as string].sponsorLevel}
+                    className="bg-sponsor-color"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

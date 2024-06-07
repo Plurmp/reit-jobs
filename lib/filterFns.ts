@@ -1,5 +1,6 @@
 import { Row } from "@tanstack/react-table";
-import { subDays, subMonths, subWeeks, subYears } from "date-fns";
+import { isBefore, subDays, subMonths, subWeeks, subYears } from "date-fns";
+import { companyInfo, SponsorLevel } from "@/app/columns";
 
 export function isWithinRange<TData>(
   row: Row<TData>,
@@ -36,7 +37,7 @@ export function isWithinRange<TData>(
   //If one filter defined and date is null filter it
   if (start && !date) return false;
   else if (!start) return true;
-  else return date.getTime() >= start.getTime();
+  else return isBefore(start, date)
 }
 
 export function locationFilter<TData>(
@@ -50,3 +51,19 @@ export function locationFilter<TData>(
     .map((location) => location === value)
     .reduce((prev, curr) => prev || curr, false);
 }
+
+export function companyFilter<TData>(
+  row: Row<TData>,
+  columnId: string,
+  value: string
+): boolean {
+  const companyName = row.getValue("companyName") as string;
+  const companyLevel = companyInfo[companyName]?.sponsorLevel;
+  if (!isNaN(Number(value))) {
+    const valueNum = parseInt(value)
+    if (companyLevel === undefined) return false;
+    if (companyLevel === valueNum) return true;
+  }
+  return companyName === value;
+}
+

@@ -74,3 +74,27 @@
       @apply bg-background text-foreground;
     }
   }
+
+  @layer components {
+    .bg-partner {
+      @apply bg-gradient-to-r from-blue-400 to-blue-200;
+    }
+    .bg-bronze {
+      @apply bg-gradient-to-r from-amber-700 to-amber-500;
+    }
+    .bg-silver {
+      @apply bg-gradient-to-r from-neutral-600 to-neutral-400;
+    }
+    .bg-gold {
+      @apply bg-gradient-to-r from-amber-500 to-amber-300;
+    }
+    .bg-platinum {
+      @apply bg-gradient-to-r from-stone-400 to-stone-200;
+    }
+    .bg-medallion {
+      @apply bg-gradient-to-r from-violet-600 to-violet-400;
+    }
+    .bg-sponsor-color {
+      @apply bg-white data-[sponsor=n0]:bg-partner data-[sponsor=n1]:bg-bronze data-[sponsor=n2]:bg-silver data-[sponsor=n3]:bg-gold data-[sponsor=n4]:bg-platinum data-[sponsor=n5]:bg-medallion
+    }
+  }

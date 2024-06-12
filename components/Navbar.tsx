@@ -1,8 +1,22 @@
+"use client";
+
 import Link from 'next/link';
 import React from 'react'
-import { Sun, Moon, Italic } from 'lucide-react';
+import '@aws-amplify/ui-react/styles.css';
+import { getCurrentUser, AuthUser, signOut } from 'aws-amplify/auth';
+import { Button } from './ui/button';
 
-const Navbar = () => {
+
+const Navbar = async () => {
+    let currentUser: AuthUser | undefined;
+    try {
+        currentUser = await getCurrentUser();
+    } catch (error) {
+        currentUser = undefined;
+}
+    async function handleSignOut() {
+        await signOut();
+    }
 
     return (
         <header className='w-full bg-gradient-to-r from-blue-600 to-blue-400 border-b-2'>
@@ -14,6 +28,14 @@ const Navbar = () => {
                 <p className='text-md font-semibold text-red-700'>
                     THIS WEBSITE IS A WORK IN PROGRESS. JOBS ARE NOT BEING UPDATED LIVE.
                 </p>
+                <p>{`${currentUser}`}</p>
+                {currentUser === undefined ? (
+                    <div className='flex gap-x-2'>
+                        <Link href={'/login'}><Button>Login/Sign Up</Button></Link>
+                    </div>
+                ) : (
+                    <button onClick={handleSignOut}>Logout</button>
+                )}
             </nav>
         </header>
     )

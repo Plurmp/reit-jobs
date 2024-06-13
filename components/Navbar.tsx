@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { getCurrentUser, AuthUser, signOut } from 'aws-amplify/auth';
+import { getCurrentUser, AuthUser, signOut, fetchUserAttributes } from 'aws-amplify/auth';
 import { Button } from './ui/button';
 
 
@@ -34,7 +34,9 @@ const Navbar = async () => {
                     </div>
                 ) : (
                     <div>
-                        <p>{currentUser.username} ({currentUser.userId})</p>
+                        <p className='truncate'>{
+                            (await fetchUserAttributes()).email
+                        }</p>
                         <Button onClick={handleSignOut}>Logout</Button>
                     </div>
                 )}

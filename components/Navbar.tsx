@@ -33,7 +33,7 @@ const Navbar = async () => {
                         <Link href={'/login'}><Button>Login/Sign Up</Button></Link>
                     </div>
                 ) : (
-                    <div>
+                    <div className='flex gap-x-2'>
                         <p className='truncate'>{
                             (await fetchUserAttributes()).email
                         }</p>

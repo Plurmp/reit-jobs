@@ -78,7 +78,7 @@ export default function Login() {
     <Authenticator>
       {({ user }) => 
         <div className='flex rounded-md bg-white/90'>
-          <h1>You're logged in with {user?.username}!</h1>
+          <h1>You have been logged in with {user?.username}!</h1>
           <Link href="/"><h1>Return to list</h1></Link>
         </div>
       }

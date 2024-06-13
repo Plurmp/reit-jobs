@@ -1,17 +1,9 @@
 "use client";
 
 import '@aws-amplify/ui-react/styles.css';
-import { FormEvent } from 'react';
-import { signIn } from 'aws-amplify/auth';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Amplify } from 'aws-amplify';
-import outputs from '@/amplify_outputs.json'
-import { redirect } from 'next/navigation';
+import outputs from '@/amplify_outputs.json';
 import Link from 'next/link';
 import { Authenticator } from '@aws-amplify/ui-react';
 
@@ -85,9 +77,9 @@ export default function Login() {
   return (
     <Authenticator>
       {({ user }) => 
-        <div className='rounded-md bg-white/90'>
-          <h1>You're logged in with {user?.username}</h1>
-          <Link href="/"><h1>Return to Home</h1></Link>
+        <div className='flex rounded-md bg-white/90'>
+          <h1>You're logged in with {user?.username}!</h1>
+          <Link href="/"><h1>Return to list</h1></Link>
         </div>
       }
     </Authenticator>

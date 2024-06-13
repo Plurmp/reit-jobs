@@ -20,8 +20,6 @@
     "aws-amplify": "^6.3.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "datatables.net": "^2.0.7",
-    "datatables.net-dt": "^2.0.7",
     "date-fns": "^3.6.0",
     "lucide-react": "^0.378.0",
     "next": "^14.2.4",

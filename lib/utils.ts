@@ -3,8 +3,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-import * as React from 'react'
-
 interface ICompanyInfo {
   [key: string]: {
     fullName: string;

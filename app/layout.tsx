@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
 
+Amplify.configure(outputs);
 
 const inter = Inter({ subsets: ["latin"] });
 

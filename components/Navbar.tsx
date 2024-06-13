@@ -28,13 +28,15 @@ const Navbar = async () => {
                 <p className='text-md font-semibold text-red-700'>
                     THIS WEBSITE IS A WORK IN PROGRESS. JOBS ARE NOT BEING UPDATED LIVE.
                 </p>
-                <p>{`${currentUser}`}</p>
                 {currentUser === undefined ? (
                     <div className='flex gap-x-2'>
                         <Link href={'/login'}><Button>Login/Sign Up</Button></Link>
                     </div>
                 ) : (
-                    <button onClick={handleSignOut}>Logout</button>
+                    <div>
+                        <p>{currentUser.username} ({currentUser.userId})</p>
+                        <Button onClick={handleSignOut}>Logout</Button>
+                    </div>
                 )}
             </nav>
         </header>

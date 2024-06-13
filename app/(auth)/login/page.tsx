@@ -14,9 +14,11 @@ export default function Login() {
   return (
     <Authenticator>
       {({ user }) => 
-        <div className='flex rounded-md bg-white/90'>
-          <h1>You have been logged in!</h1>
-          <Link href="/"><Button>Return to List</Button></Link>
+        <div className='flex justify-center'>
+          <div className='flex flex-col rounded-md bg-white/90 p-4 m-4'>
+            <h1>You have been logged in!</h1>
+            <Link href="/"><Button>Return to List</Button></Link>
+          </div>
         </div>
       }
     </Authenticator>

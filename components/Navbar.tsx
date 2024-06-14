@@ -39,11 +39,20 @@ const Navbar = async () => {
                             </DropdownMenuItem>
                             :
                             <>
+                                <DropdownMenuItem>{email}</DropdownMenuItem>
+                                <DropdownMenuSeparator></DropdownMenuSeparator>
                                 <DropdownMenuItem>
                                     <Link href={'/upload'}>Upload Resume</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem onClick={async () => await signOut()}>Sign Out</DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={async () => {
+                                        await signOut();
+                                        window.location.reload();
+                                    }}
+                                >
+                                    Sign Out
+                                </DropdownMenuItem>
                             </>
                         }
                     </DropdownMenuContent>

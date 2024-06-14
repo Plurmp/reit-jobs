@@ -3,7 +3,9 @@
 import { Authenticator } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
-import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage'
+import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
+import prettyBytes from 'pretty-bytes';
+import Files from '@/components/Files';
 
 export default async function Upload() {
   let previousResumes: ListPaginateWithPathOutput | undefined = undefined;
@@ -17,19 +19,14 @@ export default async function Upload() {
 
   return (
     <Authenticator>
-      {() =>
+      {() => 
         <div>
-          {previousResumes !== undefined 
-            ?
-              previousResumes.items.map((resume, index) => 
-                <ul key={index}>
-                  <li>{resume.path}</li>
-                  <li>{resume.lastModified?.toLocaleDateString() ?? "unknown date"}</li>
-                  <li>{resume.size}</li>
-                </ul>
-              )
-            : ""
-          }
+          <div>
+            {!!previousResumes 
+              ? <Files fileList={previousResumes} />
+              : ""
+            }
+          </div>
           <StorageManager
             acceptedFileTypes={['.doc', '.docx', '.pdf']}
             path={({ identityId }) => `resumes/${identityId}/`}

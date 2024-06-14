@@ -16,7 +16,7 @@ export default function Login() {
         <div className='flex justify-center'>
           <div className='flex flex-col rounded-md bg-white/90 p-4 m-4 gap-2 justify-items-center'>
             <h1 className='font-semibold text-xl'>You have been logged in!</h1>
-            <p>{user?.username}</p>
+            {/* <p>{user?.username}</p> */}
             <Link href="/" className='flex justify-center'><Button>Return to List</Button></Link>
           </div>
         </div>

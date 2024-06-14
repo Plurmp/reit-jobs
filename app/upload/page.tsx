@@ -21,8 +21,8 @@ export default async function Upload() {
         <div>
           {previousResumes !== undefined 
             ?
-              previousResumes.items.map((resume) => 
-                <ul>
+              previousResumes.items.map((resume, index) => 
+                <ul key={index}>
                   <li>{resume.path}</li>
                   <li>{resume.lastModified?.toLocaleDateString() ?? "unknown date"}</li>
                   <li>{resume.size}</li>

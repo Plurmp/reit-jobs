@@ -24,7 +24,7 @@ export default async function Upload() {
   return (
     <Authenticator>
       {() => 
-        <div className='m-4'>
+        <div className='m-4 p-4'>
           <div className='rounded-md bg-white/90'>
             <h1 className='font-bold text-2xl'>Previous Resumes</h1>
             <div className='flex justify-center m-4'>

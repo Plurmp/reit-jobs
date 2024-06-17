@@ -14,7 +14,7 @@ export default function Files({ fileList }: FilesProps) {
       {
         fileList.items.map((file, index) =>
           <div className='flex w-full rounded-md bg-white/90 justify-between p-3 align-center' key={index}>
-            <div className='align-center'>
+            <div className='flex align-center'>
               <File />
               <h1>{/.+\/(.+)$/.exec(file.path)?.[1]}</h1>
             </div>

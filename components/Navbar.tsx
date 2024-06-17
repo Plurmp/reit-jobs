@@ -5,7 +5,7 @@ import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import ProfileDropdown from './ProfileDropdown';
 
-const Navbar = () => {
+const Navbar = ({children}: Readonly<{children: React.ReactNode}>) => {
     return (
         <header className='w-full bg-gradient-to-r from-blue-600 to-blue-400 border-b-2'>
             <nav className='flex justify-between items-center px-10 py-4'>
@@ -16,7 +16,7 @@ const Navbar = () => {
                 <p className='text-md font-semibold text-red-700'>
                     THIS WEBSITE IS A WORK IN PROGRESS. JOBS ARE NOT BEING UPDATED LIVE.
                 </p>
-                <ProfileDropdown/>
+                {children}
             </nav>
         </header>
     )

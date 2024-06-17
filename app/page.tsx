@@ -5,7 +5,7 @@ import { DataTable } from '@/components/DataTable';
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
 
-// Amplify.configure(outputs, { ssr: true });
+Amplify.configure(outputs, { ssr: true });
 
 interface TopLevelJson {
   positions: Position[]

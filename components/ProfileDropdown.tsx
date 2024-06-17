@@ -5,7 +5,7 @@ import { signOut, fetchUserAttributes } from 'aws-amplify/auth';
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
 
-// Amplify.configure(outputs, { ssr: true });
+Amplify.configure(outputs, { ssr: true });
 
 export default async function ProfileDropdown() {
   let email: string | undefined;

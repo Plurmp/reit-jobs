@@ -12,7 +12,7 @@ interface TopLevelJson {
 }
 
 function getPositions(): Position[] {
-  const posData: TopLevelJson = JSON.parse(readFileSync('./positions.json').toString());
+  const posData: TopLevelJson = JSON.parse(readFileSync('@/positions.json').toString());
   return posData.positions;
 }
 

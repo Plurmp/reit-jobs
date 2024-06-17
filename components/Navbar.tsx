@@ -8,10 +8,6 @@ import { Button } from './ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { User } from 'lucide-react'
 
-import { Amplify } from 'aws-amplify';
-import outputs from '@/amplify_outputs.json';
-
-Amplify.configure(outputs);
 
 const Navbar = async () => {
     let email: string | undefined;

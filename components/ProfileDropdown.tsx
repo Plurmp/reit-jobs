@@ -1,8 +1,11 @@
-
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator} from './ui/dropdown-menu';
 import { User } from 'lucide-react';
 import Link from 'next/link';
 import { signOut, fetchUserAttributes } from 'aws-amplify/auth';
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
+
+Amplify.configure(outputs, { ssr: true });
 
 export default async function ProfileDropdown() {
   let email: string | undefined;

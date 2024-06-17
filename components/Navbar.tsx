@@ -3,23 +3,9 @@
 import Link from 'next/link';
 import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { getCurrentUser, AuthUser, signOut, fetchUserAttributes } from 'aws-amplify/auth';
-import { Button } from './ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { User } from 'lucide-react'
-import { Amplify } from 'aws-amplify';
-import outputs from '@/amplify_outputs.json';
+import ProfileDropdown from './ProfileDropdown';
 
-Amplify.configure(outputs, { ssr: true })
-
-const Navbar = async () => {
-    let email: string | undefined;
-    try {
-        email = (await fetchUserAttributes()).email
-    } catch (error) {
-        email = undefined;
-    }
-
+const Navbar = () => {
     return (
         <header className='w-full bg-gradient-to-r from-blue-600 to-blue-400 border-b-2'>
             <nav className='flex justify-between items-center px-10 py-4'>
@@ -30,36 +16,7 @@ const Navbar = async () => {
                 <p className='text-md font-semibold text-red-700'>
                     THIS WEBSITE IS A WORK IN PROGRESS. JOBS ARE NOT BEING UPDATED LIVE.
                 </p>
-                <DropdownMenu>
-                    <DropdownMenuTrigger className='hover:bg-accent/50 rounded-md p-1'>
-                        <User />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                        {email === undefined 
-                            ? 
-                            <DropdownMenuItem>
-                                <Link href={'/login'}>Login/Sign Up</Link>
-                            </DropdownMenuItem>
-                            :
-                            <>
-                                <DropdownMenuLabel>{email}</DropdownMenuLabel>
-                                <DropdownMenuSeparator></DropdownMenuSeparator>
-                                <DropdownMenuItem>
-                                    <Link href={'/upload'}>Upload Resume</Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem 
-                                    onClick={async () => {
-                                        await signOut();
-                                        window.location.reload();
-                                    }}
-                                >
-                                    Sign Out
-                                </DropdownMenuItem>
-                            </>
-                        }
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <ProfileDropdown/>
             </nav>
         </header>
     )

@@ -25,7 +25,8 @@ export default async function Upload() {
     <Authenticator>
       {() => 
         <div>
-          <div>
+          <h1 className='font-bold text-2xl'>Previous Resumes</h1>
+          <div className='flex flex-col justify-center m-4'>
             {!!previousResumes 
               ? <Files fileList={previousResumes} />
               : ""

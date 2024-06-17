@@ -15,7 +15,6 @@ function getPositions(): Position[] {
   return posData.positions;
 }
 
-Amplify.configure(outputs);
 
 const Home = () => {
   const data = getPositions();

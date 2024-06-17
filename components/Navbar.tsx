@@ -5,9 +5,13 @@ import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import { getCurrentUser, AuthUser, signOut, fetchUserAttributes } from 'aws-amplify/auth';
 import { Button } from './ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { User } from 'lucide-react'
 
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
+
+Amplify.configure(outputs);
 
 const Navbar = async () => {
     let email: string | undefined;
@@ -39,7 +43,7 @@ const Navbar = async () => {
                             </DropdownMenuItem>
                             :
                             <>
-                                <DropdownMenuItem>{email}</DropdownMenuItem>
+                                <DropdownMenuLabel>{email}</DropdownMenuLabel>
                                 <DropdownMenuSeparator></DropdownMenuSeparator>
                                 <DropdownMenuItem>
                                     <Link href={'/upload'}>Upload Resume</Link>

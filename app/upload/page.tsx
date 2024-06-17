@@ -6,6 +6,10 @@ import '@aws-amplify/ui-react/styles.css';
 import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
 import prettyBytes from 'pretty-bytes';
 import Files from '@/components/Files';
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
+
+Amplify.configure(outputs);
 
 export default async function Upload() {
   let previousResumes: ListPaginateWithPathOutput | undefined = undefined;

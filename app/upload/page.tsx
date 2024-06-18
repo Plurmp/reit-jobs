@@ -4,7 +4,6 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
-import prettyBytes from 'pretty-bytes';
 import Files from '@/components/Files';
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
@@ -25,7 +24,7 @@ export default async function Upload() {
     <Authenticator>
       {() => 
         <div className='m-4 p-4'>
-          <div className='rounded-md bg-white/90'>
+          <div className='rounded-md bg-white/90 mb-4'>
             <h1 className='font-bold text-2xl'>Previous Resumes</h1>
             <div className='flex justify-center m-4'>
               {!!previousResumes 

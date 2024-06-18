@@ -4,6 +4,10 @@ import Link from 'next/link';
 import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
 import ProfileDropdown from './ProfileDropdown';
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
+
+Amplify.configure(outputs, { ssr: true });
 
 const Navbar = ({children}: Readonly<{children: React.ReactNode}>) => {
     return (

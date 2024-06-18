@@ -11,7 +11,7 @@ interface FilesProps {
 
 export default function Files({ fileList }: FilesProps) {
   return (
-    <div className='flex flex-col w-2/3 justify-center p-3'>
+    <div className='flex flex-col w-full justify-center p-3'>
       {
         fileList.items.map((file, index) =>
           <div className='flex w-full rounded-md bg-white/90 justify-between p-3 items-center border' key={index}>

@@ -7,7 +7,7 @@ export default async function ResumeList() {
   let resumes: ListPaginateWithPathOutput | undefined;
   try {
     resumes = await list({
-      path: "resumes/"
+      path: "resumes/*/"
     });
   } catch (error) {
     resumes = undefined;

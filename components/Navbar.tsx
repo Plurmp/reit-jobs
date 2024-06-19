@@ -3,21 +3,13 @@
 import Link from 'next/link';
 import React from 'react'
 import '@aws-amplify/ui-react/styles.css';
-import { getCurrentUser, AuthUser, signOut, fetchUserAttributes } from 'aws-amplify/auth';
-import { Button } from './ui/button';
+import ProfileDropdown from './ProfileDropdown';
+import { Amplify } from 'aws-amplify';
+import outputs from '@/amplify_outputs.json';
 
+Amplify.configure(outputs, { ssr: true });
 
-const Navbar = async () => {
-    let currentUser: AuthUser | undefined;
-    try {
-        currentUser = await getCurrentUser();
-    } catch (error) {
-        currentUser = undefined;
-}
-    async function handleSignOut() {
-        await signOut();
-    }
-
+const Navbar = ({children}: Readonly<{children: React.ReactNode}>) => {
     return (
         <header className='w-full bg-gradient-to-r from-blue-600 to-blue-400 border-b-2'>
             <nav className='flex justify-between items-center px-10 py-4'>
@@ -28,18 +20,7 @@ const Navbar = async () => {
                 <p className='text-md font-semibold text-red-700'>
                     THIS WEBSITE IS A WORK IN PROGRESS. JOBS ARE NOT BEING UPDATED LIVE.
                 </p>
-                {currentUser === undefined ? (
-                    <div className='flex gap-x-2'>
-                        <Link href={'/login'}><Button>Login/Sign Up</Button></Link>
-                    </div>
-                ) : (
-                    <div className='flex gap-x-2'>
-                        <p className='truncate'>{
-                            (await fetchUserAttributes()).email
-                        }</p>
-                        <Button onClick={handleSignOut}>Logout</Button>
-                    </div>
-                )}
+                {children}
             </nav>
         </header>
     )

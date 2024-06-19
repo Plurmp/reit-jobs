@@ -4,21 +4,17 @@ import { readFileSync } from 'fs';
 import { DataTable } from '@/components/DataTable';
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
+import _positions from '@/positions.json';
+const positions = (_positions as TopLevelJson).positions
 
+Amplify.configure(outputs, { ssr: true });
 
 interface TopLevelJson {
   positions: Position[]
 }
 
-function getPositions(): Position[] {
-  const posData: TopLevelJson = JSON.parse(readFileSync('./positions.json').toString());
-  return posData.positions;
-}
-
-Amplify.configure(outputs);
-
 const Home = () => {
-  const data = getPositions();
+  const data = positions;
 
   return (
     <div>

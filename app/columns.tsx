@@ -205,7 +205,7 @@ export const columns: ColumnDef<Position>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(position.url)}
+              onClick={async () => navigator.clipboard.writeText(position.url)}
             >
               Copy Job Post URL
             </DropdownMenuItem>

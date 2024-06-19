@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import ProfileDropdown from "@/components/ProfileDropdown";
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
 
-Amplify.configure(outputs);
+Amplify.configure(outputs, { ssr: true });
+
+export const dynamic = "force-dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +26,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="max-w-10xl mx-auto min-h-screen bg-dallas-skyline bg-cover h-full">
-          <Navbar/>
+          <Navbar>
+            <ProfileDropdown/>
+          </Navbar>
           
           {children}
         </main>

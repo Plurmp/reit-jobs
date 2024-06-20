@@ -1,12 +1,12 @@
 "use client";
 
-import { ListPaginateWithPathOutput, remove, RemoveWithPathInput, downloadData, DownloadDataWithPathInput } from 'aws-amplify/storage';
+import { ListAllWithPathOutput, remove, RemoveWithPathInput, downloadData, DownloadDataWithPathInput } from 'aws-amplify/storage';
 import { Download, File, Trash2 } from 'lucide-react';
 import prettyBytes from 'pretty-bytes';
 import { Button } from './ui/button';
 
 interface FilesProps {
-  fileList: ListPaginateWithPathOutput,
+  fileList: ListAllWithPathOutput,
   canRemove?: boolean;
 }
 

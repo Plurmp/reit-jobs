@@ -36,7 +36,7 @@ export default async function Upload() {
           </div>
           <StorageManager
             acceptedFileTypes={['.doc', '.docx', '.pdf']}
-            path={({ identityId }) => `user-resumes/${identityId}/`}
+            path= "user-resumes/"
             maxFileCount={1}
             isResumable
             autoUpload={false}

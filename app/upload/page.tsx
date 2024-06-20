@@ -15,7 +15,7 @@ export default async function Upload() {
   let previousResumes: ListAllWithPathOutput | undefined = undefined;
   try {
     previousResumes = await list({
-      path: ({ identityId }) => `user-resumes/${identityId}/`,
+      path: ({ identityId }) => `resumes/${identityId}/`,
       options: { listAll: true }
     })
   } catch (error) {

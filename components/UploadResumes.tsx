@@ -17,7 +17,7 @@ export default function UploadResumes({ previousResumes }: UploadProps) {
       {() => 
         <div className='m-4'>
           <div className='rounded-md bg-white/90 mb-4 p-4'>
-            <h1 className='font-bold text-2xl'>Previous Resumes</h1>
+            <h1 className='font-bold text-2xl'>Previous Resumes: {previousResumes?.items.map((item) => item.path) ?? "nothing"}</h1>
             <div className='flex justify-center m-4 p-4'>
               {!!previousResumes 
                 ? <Files fileList={previousResumes} canRemove={true}/>
@@ -27,7 +27,7 @@ export default function UploadResumes({ previousResumes }: UploadProps) {
           </div>
           <StorageManager
             acceptedFileTypes={['.doc', '.docx', '.pdf']}
-            path={({ identityId }) => `user-resumes/${identityId}/`}
+            path={({ identityId }) => `resumes/${identityId}/`}
             maxFileCount={1}
             isResumable
             autoUpload={false}

@@ -40,17 +40,17 @@ export default async function Upload() {
             maxFileCount={1}
             isResumable
             autoUpload={false}
-            onUploadSuccess={async ({ key }) => {
-              await copy({
-                source: {
-                  path: ({ identityId }) => `user-resumes/${identityId}/${key}`
-                },
-                destination: {
-                  path: `resumes/${key}`
-                }
-              });
-              window.location.reload();
-            }}
+            // onUploadSuccess={async ({ key }) => {
+            //   await copy({
+            //     source: {
+            //       path: ({ identityId }) => `user-resumes/${identityId}/${key}`
+            //     },
+            //     destination: {
+            //       path: `resumes/${key}`
+            //     }
+            //   });
+            //   window.location.reload();
+            // }}
           />
         </div>
       }

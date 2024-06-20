@@ -8,7 +8,7 @@ export const storage = defineStorage({
             allow.groups(["employer"]).to(["read"]),
             allow.authenticated.to(["write"]),
         ],
-        "user-resumes/{entity_id}/*": [
+        "user-resumes/*": [
             allow.authenticated.to(['read', 'write', 'delete']),
         ],
     })

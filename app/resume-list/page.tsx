@@ -1,27 +1,38 @@
 "use server";
 
-import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
+import { list, ListAllWithPathOutput } from 'aws-amplify/storage';
 import Files from '@/components/Files';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 export default async function ResumeList() {
-  let resumes: ListPaginateWithPathOutput | undefined;
+  let resumes: ListAllWithPathOutput | undefined;
   try {
     resumes = await list({
-      path: ""
+      path: "",
+      options: {
+        listAll: true
+      }
     });
   } catch (error) {
     resumes = undefined;
   }
 
+  const isAdmin = (await fetchAuthSession())
+    .tokens
+    ?.accessToken
+    .payload["cognito:groups"]
+    ?.toString()
+    .includes("admin");
+
   return (
     <div className='p-4'>
       <div className='rounded-md bg-white p-4'>
         <h1 className='font-bold text-2xl'>
-          Resumes: {resumes?.items.map(item => item.path)}
+          Resumes
         </h1>
         <div className='flex justify-center m-4 p-4'>
           {!!resumes
-          ? <Files fileList={resumes}/>
+          ? <Files fileList={resumes} canRemove={isAdmin}/>
           : null
           }
         </div>

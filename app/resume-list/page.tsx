@@ -16,7 +16,9 @@ export default async function ResumeList() {
   return (
     <div className='p-4'>
       <div className='rounded-md bg-white p-4'>
-        <h1 className='font-bold text-2xl'>Resumes</h1>
+        <h1 className='font-bold text-2xl'>
+          Resumes: {resumes?.items.map(item => item.path)}
+        </h1>
         <div className='flex justify-center m-4 p-4'>
           {!!resumes
           ? <Files fileList={resumes}/>

@@ -14,7 +14,7 @@ export default async function Upload() {
   let previousResumes: ListPaginateWithPathOutput | undefined = undefined;
   try {
     previousResumes = await list({
-      path: ({ identityId }) => `user-resumes/${identityId}/`,
+      path: ({ identityId }) => `userresumes/${identityId}/`,
       options: { listAll: true }
     })
   } catch (error) {
@@ -36,14 +36,14 @@ export default async function Upload() {
           </div>
           <StorageManager
             acceptedFileTypes={['.doc', '.docx', '.pdf']}
-            path={({ identityId }) => `user-resumes/${identityId}/`}
+            path={({ identityId }) => `userresumes/${identityId}/`}
             maxFileCount={1}
             isResumable
             autoUpload={false}
             // onUploadSuccess={async ({ key }) => {
             //   await copy({
             //     source: {
-            //       path: ({ identityId }) => `user-resumes/${identityId}/${key}`
+            //       path: ({ identityId }) => `userresumes/${identityId}/${key}`
             //     },
             //     destination: {
             //       path: `resumes/${key}`

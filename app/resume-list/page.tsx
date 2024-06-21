@@ -1,11 +1,11 @@
 "use server";
 
-import { list, ListAllWithPathOutput } from 'aws-amplify/storage';
+import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
 import Files from '@/components/Files';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 export default async function ResumeList() {
-  let resumes: ListAllWithPathOutput | undefined;
+  let resumes: ListPaginateWithPathOutput | undefined;
   try {
     resumes = await list({
       path: "",

@@ -20,10 +20,9 @@ export default function UploadResumes(
   { previousResumes }: UploadProps
 ) {
   return (
-    <Authenticator>
       <div className='m-4'>
         <div className='rounded-md bg-white/90 mb-4 p-4'>
-          <h1 className='font-bold text-2xl'>Previous Resumes: {previousResumes?.items.map((item) => item.path) ?? "nothing"}</h1>
+          <h1 className='font-bold text-2xl'>Previous Resumes</h1>
           <div className='flex justify-center m-4 p-4'>
             {!!previousResumes 
               ? <Files fileList={previousResumes} canRemove={true}/>
@@ -50,6 +49,5 @@ export default function UploadResumes(
           // }}
         />
       </div>
-    </Authenticator>
   )
 }

@@ -1,4 +1,4 @@
-'use server';
+'use client';
 
 import { Authenticator } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
@@ -36,6 +36,8 @@ export default async function Upload() {
   // }
 
   return (
-    <UploadResumes previousResumes={previousResumes} />
+    <Authenticator>
+      <UploadResumes previousResumes={previousResumes} />
+    </Authenticator>
   );
 }

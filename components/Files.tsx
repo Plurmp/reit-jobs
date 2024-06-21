@@ -4,10 +4,10 @@ import { ListPaginateWithPathOutput, remove, RemoveWithPathInput, downloadData, 
 import { Download, File, Trash2 } from 'lucide-react';
 import prettyBytes from 'pretty-bytes';
 import { Button } from './ui/button';
-import { Amplify } from 'aws-amplify';
-import outputs from '@/amplify_outputs.json';
+// import { Amplify } from 'aws-amplify';
+// import outputs from '@/amplify_outputs.json';
 
-Amplify.configure(outputs);
+// Amplify.configure(outputs);
 
 interface FilesProps {
   fileList: ListPaginateWithPathOutput,
@@ -26,7 +26,7 @@ export default function Files({ fileList, canRemove }: FilesProps) {
             </div>
             <h1>Uploaded {file.lastModified?.toLocaleDateString()}</h1>
             <h1>{!!file.size ? prettyBytes(file.size) : null}</h1>
-            <div className='align-center gap-1'>
+            <div className='flex align-center gap-1'>
               {!!canRemove
                 ?
                 <Button

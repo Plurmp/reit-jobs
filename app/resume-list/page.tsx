@@ -9,9 +9,6 @@ export default async function ResumeList() {
   try {
     resumes = await list({
       path: "",
-      options: {
-        listAll: true
-      }
     });
   } catch (error) {
     resumes = undefined;

@@ -29,7 +29,6 @@ export default function RootLayout({
           <Navbar>
             <ProfileDropdown/>
           </Navbar>
-          
           {children}
         </main>
       </body>

@@ -3,12 +3,15 @@
 import { Authenticator } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
-import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
+import { copy, list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
 import Files from '@/components/Files';
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
+import UploadResumes from '@/components/UploadResumes';
+import { runWithAmplifyServerContext } from '@/lib/amplifyServerUtils';
+import { cookies } from 'next/headers';
 
-Amplify.configure(outputs);
+Amplify.configure(outputs, { ssr: true });
 
 export default async function Upload() {
   let previousResumes: ListPaginateWithPathOutput | undefined = undefined;
@@ -20,28 +23,21 @@ export default async function Upload() {
     previousResumes = undefined;
   }
 
+  // try {
+  //   previousResumes = await runWithAmplifyServerContext({
+  //     nextServerContext: { cookies },
+  //     operation: (contextSpec) => list({
+  //       path: ({identityId}) => `resumes/${identityId}/`,
+  //       options: { listAll: true }
+  //     })
+  //   })
+  // } catch (error) {
+  //   previousResumes = undefined;
+  // }
+
   return (
     <Authenticator>
-      {() => 
-        <div className='m-4'>
-          <div className='rounded-md bg-white/90 mb-4 p-4'>
-            <h1 className='font-bold text-2xl'>Previous Resumes</h1>
-            <div className='flex justify-center m-4 p-4'>
-              {!!previousResumes 
-                ? <Files fileList={previousResumes} />
-                : ""
-              }
-            </div>
-          </div>
-          <StorageManager
-            acceptedFileTypes={['.doc', '.docx', '.pdf']}
-            path={({ identityId }) => `resumes/${identityId}/`}
-            maxFileCount={1}
-            isResumable
-            autoUpload={false}
-          />
-        </div>
-      }
+      <UploadResumes previousResumes={previousResumes} />
     </Authenticator>
   );
 }

@@ -1,15 +1,20 @@
-"use client"
+"use client";
 
 import { ListPaginateWithPathOutput, remove, RemoveWithPathInput, downloadData, DownloadDataWithPathInput } from 'aws-amplify/storage';
 import { Download, File, Trash2 } from 'lucide-react';
 import prettyBytes from 'pretty-bytes';
 import { Button } from './ui/button';
+// import { Amplify } from 'aws-amplify';
+// import outputs from '@/amplify_outputs.json';
+
+// Amplify.configure(outputs);
 
 interface FilesProps {
-  fileList: ListPaginateWithPathOutput;
+  fileList: ListPaginateWithPathOutput,
+  canRemove?: boolean;
 }
 
-export default function Files({ fileList }: FilesProps) {
+export default function Files({ fileList, canRemove }: FilesProps) {
   return (
     <div className='flex flex-col w-full justify-center p-3'>
       {
@@ -21,10 +26,20 @@ export default function Files({ fileList }: FilesProps) {
             </div>
             <h1>Uploaded {file.lastModified?.toLocaleDateString()}</h1>
             <h1>{!!file.size ? prettyBytes(file.size) : null}</h1>
-            <div className='align-center gap-1'>
-              <Button onClick={async () => await remove(file as RemoveWithPathInput)}>
-                <Trash2 />
-              </Button>
+            <div className='flex align-center gap-1'>
+              {!!canRemove
+                ?
+                <Button
+                  onClick={async () => {
+                    await remove(file as RemoveWithPathInput);
+                    window.location.reload();
+                  }}
+                >
+                  <Trash2 />
+                </Button>
+                :
+                null
+              }
               <Button onClick={() => downloadData(file as DownloadDataWithPathInput)}>
                 <Download />
               </Button>

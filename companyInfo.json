@@ -57,5 +57,13 @@
         "fullName": "UDR Apartments",
         "logo": "UDR.svg",
         "sponsorLevel": 5
+    },
+    "AHH": {
+        "fullName": "Armada Hoffler Properties",
+        "logo": "AHH.svg"
+    },
+    "AKR": {
+        "fullName": "Acadia Reality Trust",
+        "logo": "AKR.svg"
     }
 }

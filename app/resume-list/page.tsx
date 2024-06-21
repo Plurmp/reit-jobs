@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
 import Files from '@/components/Files';
@@ -8,7 +8,7 @@ export default async function ResumeList() {
   let resumes: ListPaginateWithPathOutput | undefined;
   try {
     resumes = await list({
-      path: "",
+      path: "resumes/*/",
     });
   } catch (error) {
     resumes = undefined;

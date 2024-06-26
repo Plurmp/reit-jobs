@@ -5,7 +5,12 @@ import { DataTable } from '@/components/DataTable';
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
 import _positions from '@/positions.json';
-const positions = (_positions as TopLevelJson).positions
+let positions = (_positions as TopLevelJson).positions;
+positions = [
+  ...new Map(
+    positions.map((position) => [position.url, position])
+  ).values()
+]
 
 Amplify.configure(outputs, { ssr: true });
 

@@ -65,5 +65,61 @@
     "AKR": {
         "fullName": "Acadia Reality Trust",
         "logo": "AKR.svg"
+    },
+    "NXRT": {
+        "fullName": "NexPoint Residential Trust",
+        "logo": "NXRT.svg"
+    },
+    "SUI": {
+        "fullName": "Sun Communities",
+        "logo": "SUI.svg"
+    },
+    "PSA": {
+        "fullName": "Public Storage",
+        "logo": "PSA.svg"
+    },
+    "EXR": {
+        "fullName": "Extra Space Storage",
+        "logo": "EXR.svg"
+    },
+    "BXP": {
+        "fullName": "Boston Properties",
+        "logo": "BXP.svg"
+    },
+    "DEA": {
+        "fullName": "Easterly Government Properties",
+        "logo": "DEA.svg"
+    },
+    "DEI": {
+        "fullName": "Douglas Emmett",
+        "logo": "DEI.svg"
+    },
+    "HIW": {
+        "fullName": "Highwoods Properties",
+        "logo": "HIW.svg"
+    },
+    "KRC": {
+        "fullName": "Kilroy Realty",
+        "logo": "KRC.svg"
+    },
+    "VNO": {
+        "fullName": "Vornado Realty Trust",
+        "logo": "VNO.svg"
+    },
+    "EGP": {
+        "fullName": "EastGroup Properties",
+        "logo": "EGP.svg"
+    },
+    "FR": {
+        "fullName": "First Industrial Realty Trust",
+        "logo": "FR.svg"
+    },
+    "REXR": {
+        "fullName": "Rexford Industrial",
+        "logo": "REXR.svg"
+    },
+    "CCI": {
+        "fullName": "Crown Castle",
+        "logo": "CCI.svg"
     }
 }

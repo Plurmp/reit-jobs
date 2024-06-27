@@ -121,5 +121,25 @@
     "CCI": {
         "fullName": "Crown Castle",
         "logo": "CCI.svg"
+    },
+    "EQIX": {
+        "fullName": "Equinix",
+        "logo": "EQIX.svg"
+    },
+    "NNN": {
+        "fullName": "NNN REIT",
+        "logo": "NNN.svg"
+    },
+    "NTST": {
+        "fullName": "Netstreit",
+        "logo": "NTST.svg"
+    },
+    "SKT": {
+        "fullName": "Tanger",
+        "logo": "SKT.svg"
+    },
+    "BRX": {
+        "fullName": "Brixmor Property Group",
+        "logo": "BRX.png"
     }
 }

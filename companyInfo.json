@@ -141,5 +141,41 @@
     "BRX": {
         "fullName": "Brixmor Property Group",
         "logo": "BRX.png"
+    },
+    "FRT": {
+        "fullName": "Federal Realty",
+        "logo": "FRT.svg"
+    },
+    "REG": {
+        "fullName": "Regency Centers",
+        "logo": "REG.svg"
+    },
+    "DOC": {
+        "fullName": "Healthpeak Properties",
+        "logo": "DOC.svg"
+    },
+    "HST": {
+        "fullName": "Host Hotels & Resorts",
+        "logo": "HST.svg"
+    },
+    "AMH": {
+        "fullName": "American Homes 4 Rent",
+        "logo": "AMH.svg"
+    },
+    "INVH": {
+        "fullName": "Invitation Homes",
+        "logo": "INVH.svg"
+    },
+    "ESS": {
+        "fullName": "Essex Property Trust",
+        "logo": "ESS.svg"
+    },
+    "CSR": {
+        "fullName": "Centerspace",
+        "logo": "CSR.svg"
+    },
+    "IRT": {
+        "fullName": "Independence Realty Trust",
+        "logo": "IRT.svg"
     }
 }

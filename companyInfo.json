@@ -177,5 +177,21 @@
     "IRT": {
         "fullName": "Independence Realty Trust",
         "logo": "IRT.svg"
+    },
+    "ADC": {
+        "fullName": "Agree Realty",
+        "logo": "ADC.png"
+    },
+    "MAA": {
+        "fullName": "Mid-America Apartment Communities",
+        "logo": "MAA.svg"
+    },
+    "ELS": {
+        "fullName": "Equity LifeStyle Properties",
+        "logo": "ELS.svg"
+    },
+    "CUBE": {
+        "fullName": "CubeSmart",
+        "logo": "CUBE.svg"
     }
 }

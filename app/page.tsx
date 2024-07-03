@@ -22,22 +22,22 @@ interface TopLevelJson {
   positions: Position[];
 }
 
-positionsFromFile.forEach(
-  async (position) => {
-    if ((await client.models.Positions.list(
-      { filter: { url: { contains: position.url } } }
-    )).data.length === 0) {
-      await client.models.Positions.create({
-        url: position.url,
-        positionName: position.positionName,
-        companyName: position.companyName,
-        location: position.location,
-        publishDate: position.publishDate?.toString(),
-        description: position.description,
-      });
-    }
-  }
-);
+// positionsFromFile.forEach(
+//   async (position) => {
+//     if ((await client.models.Positions.list(
+//       { filter: { url: { contains: position.url } } }
+//     )).data.length === 0) {
+//       await client.models.Positions.create({
+//         url: position.url,
+//         positionName: position.positionName,
+//         companyName: position.companyName,
+//         location: position.location,
+//         publishDate: position.publishDate?.toString(),
+//         description: position.description,
+//       });
+//     }
+//   }
+// );
 
 const { data: rawPositions } = await client.models.Positions.list();
 

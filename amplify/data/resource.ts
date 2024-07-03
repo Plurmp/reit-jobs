@@ -12,6 +12,19 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.guest()]),
+  Positions: a
+    .model({
+      url: a.string().required(),
+      positionName: a.string().required(),
+      companyName: a.string().required(),
+      location: a.string().array(),
+      publishDate: a.date(),
+      description: a.string(),
+    })
+    .authorization((allow) => [
+      allow.guest().to(["read"]),
+      allow.group("admin")
+    ])
 });
 
 export type Schema = ClientSchema<typeof schema>;

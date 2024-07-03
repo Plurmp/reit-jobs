@@ -39,26 +39,44 @@ interface TopLevelJson {
 //   }
 // );
 
-const { data: rawPositions } = await client.models.Positions.list();
+// const { data: rawPositions } = await client.models.Positions.list();
 
-const positions = rawPositions.map(
-  ({ url, positionName, companyName, location, publishDate, description }): Position => {
-    return {
-      url,
-      positionName,
-      companyName,
-      location: !!location ? location : undefined,
-      publishDate: !!publishDate
-        ? new Date(publishDate)
-        : undefined,
-      description: !!description
-        ? description
-        : undefined,
-    };
-  });
+// const positions = rawPositions.map(
+//   ({ url, positionName, companyName, location, publishDate, description }): Position => {
+//     return {
+//       url,
+//       positionName,
+//       companyName,
+//       location: !!location ? location : undefined,
+//       publishDate: !!publishDate
+//         ? new Date(publishDate)
+//         : undefined,
+//       description: !!description
+//         ? description
+//         : undefined,
+//     };
+//   });
 
-const Home = () => {
-  const data = positionsFromFile;
+const Home = async () => {
+  const { data: rawPositions, errors } = await client.models.Positions.list();
+
+  const positions = rawPositions.map(
+    ({ url, positionName, companyName, location, publishDate, description }): Position => {
+      return {
+        url,
+        positionName,
+        companyName,
+        location: !!location ? location : undefined,
+        publishDate: !!publishDate
+          ? new Date(publishDate)
+          : undefined,
+        description: !!description
+          ? description
+          : undefined,
+      };
+    });
+
+  const data = positions
 
   return (
     <div>

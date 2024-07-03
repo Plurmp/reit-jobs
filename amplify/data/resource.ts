@@ -17,7 +17,7 @@ const schema = a.schema({
       url: a.string().required(),
       positionName: a.string().required(),
       companyName: a.string().required(),
-      location: a.string().array(),
+      location: a.string().required().array(),
       publishDate: a.date(),
       description: a.string(),
     })

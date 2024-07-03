@@ -193,5 +193,33 @@
     "CUBE": {
         "fullName": "CubeSmart",
         "logo": "CUBE.svg"
+    },
+    "NSA": {
+        "fullName": "National Storage Affiliates",
+        "logo": "NSA.svg"
+    },
+    "ARE": {
+        "fullName": "Alexandria Real Estate Equities",
+        "logo": "ARE.png"
+    },
+    "BDN": {
+        "fullName": "Brandywine Realty Trust",
+        "logo": "BDN.png"
+    },
+    "VRE": {
+        "fullName": "Veris Residential",
+        "logo": "VRE.svg"
+    },
+    "CUZ": {
+        "fullName": "Cousins Properties",
+        "logo": "CUZ.svg"
+    },
+    "ESRT": {
+        "fullName": "Empire State Realty Trust",
+        "logo": "ESRT.svg"
+    },
+    "FSP": {
+        "fullName": "Franklin Street Properties",
+        "logo": "FSP.png"
     }
 }

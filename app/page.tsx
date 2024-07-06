@@ -37,7 +37,7 @@ interface TopLevelJson {
 //       });
 //     }
 //   }
-// );
+//   );
 
 // const { data: rawPositions } = await client.models.Positions.list();
 

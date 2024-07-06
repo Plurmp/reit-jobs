@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { listGroupsForUser } from '../functions/list-groups-for-user/resource';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -24,7 +25,15 @@ const schema = a.schema({
     .authorization((allow) => [
       allow.guest().to(["read"]),
       allow.group("admin")
-    ])
+    ]),
+  listGroupsForUser: a
+    .query()
+    .arguments({
+      userId: a.string().required(),
+    })
+    .authorization((allow) => allow.group("ADMINS"))
+    .handler(a.handler.function(listGroupsForUser))
+    .returns(a.json()),
 });
 
 export type Schema = ClientSchema<typeof schema>;

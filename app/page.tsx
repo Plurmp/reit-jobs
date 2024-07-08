@@ -18,7 +18,7 @@ positionsFromFile = [
   ).values()
 ];
 
-interface TopLevelJson {
+export interface TopLevelJson {
   positions: Position[];
 }
 

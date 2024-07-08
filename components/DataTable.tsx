@@ -98,7 +98,7 @@ export function DataTable<TData, TValue>({
     <div className="px-4 py-4">
       <div className="flex flex-col md:flex-row md:justify-between">
         <Input
-          placeholder="Filter all..."
+          placeholder={"Filter all " + table.getRowCount().toString() + " positions..."}
           value={globalFilter ?? ""}
           onChange={(event) => setGlobalFilter(event.target.value)}
           className="w-1/2 focus-visible:ring-offset-blue-900 focus-visible:ring-gray-200"

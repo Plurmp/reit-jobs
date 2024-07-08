@@ -25,6 +25,8 @@ export default async function AddPositions() {
   }
 
   async function createPositions(formData: FormData) {
+    "use server"
+
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;
     const positions: Position[] = JSON.parse(positionsStr);

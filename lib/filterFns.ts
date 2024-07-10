@@ -37,7 +37,7 @@ export function isWithinRange<TData>(
   //If one filter defined and date is null filter it
   if (start && !date) return false;
   else if (!start) return true;
-  else return isBefore(start, date)
+  else return isBefore(start, date);
 }
 
 export function locationFilter<TData>(
@@ -60,10 +60,19 @@ export function companyFilter<TData>(
   const companyName = row.getValue("companyName") as string;
   const companyLevel = companyInfo[companyName]?.sponsorLevel;
   if (!isNaN(Number(value))) {
-    const valueNum = parseInt(value)
+    const valueNum = parseInt(value);
     if (companyLevel === undefined) return false;
     if (companyLevel === valueNum) return true;
   }
   return companyName === value;
 }
 
+export function positionFilter<TData>(
+  row: Row<TData>,
+  columnId: string,
+  value: string
+): boolean {
+  if (value === "") return true;
+  const positionName = row.getValue("positionName") as string;
+  return positionName.includes(value);
+}

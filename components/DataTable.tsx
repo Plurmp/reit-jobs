@@ -38,8 +38,8 @@ import {
 
 import { companyInfo, SponsorLevel } from "@/app/columns";
 
-import { companyFullName } from "@/lib/utils";
-import { isWithinRange, locationFilter } from "@/lib/filterFns";
+import { companyFullName, mostCommonWords } from "@/lib/utils";
+import { isWithinRange, locationFilter, positionFilter } from "@/lib/filterFns";
 import { sponsorSort } from "@/lib/sortingFns";
 
 interface DataTableProps<TData, TValue> {
@@ -68,12 +68,15 @@ export function DataTable<TData, TValue>({
     "Past year",
   ];
 
+  
+
   const table = useReactTable({
     data,
     columns,
     filterFns: {
       'isWithinRange': isWithinRange,
-      'locationFilter': locationFilter
+      'locationFilter': locationFilter,
+      'positionFilter': positionFilter,
     },
     sortingFns: {
       "sponsorSort": sponsorSort
@@ -94,11 +97,17 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const allPositions = table.getCoreRowModel().rows
+    .map((row) => row.getValue("positionName") as string)
+    .join(" ");
+  const mostCommonPositions = mostCommonWords(allPositions, 30);
+  const positionFilters = mostCommonPositions.toSorted();
+
   return (
     <div className="px-4 py-4">
       <div className="flex flex-col md:flex-row md:justify-between">
         <Input
-          placeholder={"Filter all " + table.getRowCount().toString() + " positions..."}
+          placeholder={"Filter all " + table.getCoreRowModel().rows.length.toString() + " positions..."}
           value={globalFilter ?? ""}
           onChange={(event) => setGlobalFilter(event.target.value)}
           className="w-1/2 focus-visible:ring-offset-blue-900 focus-visible:ring-gray-200"
@@ -160,18 +169,16 @@ export function DataTable<TData, TValue>({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               {
-                Array.from(new Set(table.getFilteredRowModel().rows.map((row) => row.getValue("positionName") as string)))
-                  .sort()
-                  .map((positionFilter, i) =>
-                    <DropdownMenuItem
-                      key={i}
-                      onClick={() =>
-                        table.getColumn("positionName")?.setFilterValue(positionFilter)
-                      }
-                    >
-                      {positionFilter}
-                    </DropdownMenuItem>
-                  )
+                positionFilters.map((position, i) => 
+                  <DropdownMenuItem
+                    key={i}
+                    onClick={() => 
+                      table.getColumn("positionName")?.setFilterValue(position)
+                    }
+                  >
+                    {position}
+                  </DropdownMenuItem>
+                )
               }
             </DropdownMenuContent>
           </DropdownMenu>

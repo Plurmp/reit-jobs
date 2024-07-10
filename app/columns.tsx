@@ -46,7 +46,7 @@ interface ICompanyInfo {
 import _companyInfo from "@/companyInfo.json";
 export const companyInfo = _companyInfo as ICompanyInfo;
 
-import { isWithinRange, locationFilter } from "@/lib/filterFns";
+import { isWithinRange, locationFilter, positionFilter } from "@/lib/filterFns";
 
 import { Suspense } from "react";
 import { sponsorSort } from "@/lib/sortingFns";
@@ -58,9 +58,9 @@ export const columns: ColumnDef<Position>[] = [
       const position = row.original;
       return (
         <Link href={position.url} className="inline-flex size-12 rounded-md justify-center items-center hover:bg-accent/50 transition-colors">
-          <Link2 className="size-8"/>
+          <Link2 className="size-8" />
         </Link>
-      )
+      );
     }
   },
   {
@@ -80,7 +80,7 @@ export const columns: ColumnDef<Position>[] = [
       const position = row.original;
       return (
         <>
-          <Link 
+          <Link
             href={`?fullDesc=true&rowID=${row.id}`}
           >
             <div className="rounded-md hover:bg-accent/50 p-4 font-bold transition-colors">
@@ -88,11 +88,12 @@ export const columns: ColumnDef<Position>[] = [
             </div>
           </Link>
           <Suspense>
-            <FullDescription table={table}/>
+            <FullDescription table={table} />
           </Suspense>
         </>
       );
     },
+    filterFn: positionFilter,
   },
   {
     id: "companyLogo",
@@ -154,15 +155,15 @@ export const columns: ColumnDef<Position>[] = [
       } else {
         return (
           <div>
-            {locations[0]} 
-            <Link 
+            {locations[0]}
+            <Link
               href={`?fullDesc=true&rowID=${row.id}`}
               className="font-semibold"
             >
               {" "} and {locations.length - 1} other{locations.length > 2 ? "(s)" : ""}
             </Link>
           </div>
-        )
+        );
       }
     },
     filterFn: locationFilter,

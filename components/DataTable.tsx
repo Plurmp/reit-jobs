@@ -38,7 +38,7 @@ import {
 
 import { companyInfo, SponsorLevel } from "@/app/columns";
 
-import { companyFullName, mostCommonWords } from "@/lib/utils";
+import { companyFullName, mostCommonWords, locationSort } from "@/lib/utils";
 import { isWithinRange, locationFilter, positionFilter } from "@/lib/filterFns";
 import { sponsorSort } from "@/lib/sortingFns";
 
@@ -68,8 +68,6 @@ export function DataTable<TData, TValue>({
     "Past year",
   ];
 
-  
-
   const table = useReactTable({
     data,
     columns,
@@ -79,7 +77,7 @@ export function DataTable<TData, TValue>({
       'positionFilter': positionFilter,
     },
     sortingFns: {
-      "sponsorSort": sponsorSort
+      "sponsorSort": sponsorSort,
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -97,11 +95,19 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  const allPositions = table.getCoreRowModel().rows
+  const allPositions = table.getFilteredRowModel().rows
     .map((row) => row.getValue("positionName") as string)
     .join(" ");
   const mostCommonPositions = mostCommonWords(allPositions, 30);
   const positionFilters = mostCommonPositions.toSorted();
+
+  const allLocationFilters = Array.from(new Set(
+    table.getFilteredRowModel().rows
+    .map((row) => row.getValue("location") as string[])
+    .flat()
+    .filter((location) => !!location)
+  ))
+  const locationFilters = allLocationFilters.toSorted(locationSort);
 
   return (
     <div className="px-4 py-4">
@@ -233,18 +239,16 @@ export function DataTable<TData, TValue>({
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               {
-                Array.from(new Set(table.getFilteredRowModel().rows.flatMap((row) => row.getValue("location") as string[])))
-                  .sort()
-                  .map((locationFilter, i) =>
-                    <DropdownMenuItem
-                      key={i}
-                      onClick={() =>
-                        table.getColumn("location")?.setFilterValue(locationFilter)
-                      }
+                locationFilters.map((locationFilter, i) => 
+                  <DropdownMenuItem
+                    key={i}
+                    onClick={() => 
+                      table.getColumn("location")?.setFilterValue(locationFilter)
+                    }
                     >
                       {locationFilter}
-                    </DropdownMenuItem>
-                  )
+                  </DropdownMenuItem>
+                )
               }
             </DropdownMenuContent>
           </DropdownMenu>

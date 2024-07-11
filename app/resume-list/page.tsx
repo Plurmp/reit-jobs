@@ -1,25 +1,32 @@
-"use client";
+"use server";
 
-import { list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
+import { ListPaginateWithPathOutput } from 'aws-amplify/storage';
+import { list } from "aws-amplify/storage/server";
 import Files from '@/components/Files';
-import { fetchAuthSession } from 'aws-amplify/auth';
+import { fetchAuthSession } from 'aws-amplify/auth/server';
+import { runWithAmplifyServerContext } from '@/lib/amplifyServerUtils';
+import { cookies } from 'next/headers';
 
 export default async function ResumeList() {
   let resumes: ListPaginateWithPathOutput | undefined;
+  let isAdmin = false;
   try {
-    resumes = await list({
-      path: "resumes/*/",
+    resumes = await runWithAmplifyServerContext(
+      {
+        nextServerContext: { cookies },
+        operation: (contextSpec) => list(contextSpec, { path: "resumes/" })
+      }
+    );
+    const groups = await runWithAmplifyServerContext({
+      nextServerContext: { cookies },
+      operation: (contextSpec) =>
+        fetchAuthSession(contextSpec).then((response) =>
+          response.tokens?.accessToken.payload["cognito:groups"]?.toString())
     });
+    isAdmin = !!groups?.includes("admin");
   } catch (error) {
     resumes = undefined;
   }
-
-  const isAdmin = (await fetchAuthSession())
-    .tokens
-    ?.accessToken
-    .payload["cognito:groups"]
-    ?.toString()
-    .includes("admin");
 
   return (
     <div className='p-4'>
@@ -29,8 +36,8 @@ export default async function ResumeList() {
         </h1>
         <div className='flex justify-center m-4 p-4'>
           {!!resumes
-          ? <Files fileList={resumes} canRemove={isAdmin}/>
-          : null
+            ? <Files fileList={resumes} canRemove={isAdmin} />
+            : null
           }
         </div>
       </div>

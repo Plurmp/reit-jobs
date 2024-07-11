@@ -7,7 +7,6 @@ export const storage = defineStorage({
             allow.entity("identity").to(['read', 'write', 'delete']),
             allow.groups(["admin"]).to(["read", "write", "delete"]),
             allow.groups(["employer"]).to(["read"]),
-            allow.authenticated.to(["write"]),
         ],
     }),
 })

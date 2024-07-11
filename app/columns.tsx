@@ -12,8 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import Image from "next/image";
-
 import { FullDescription } from "@/components/FullDescription";
 
 // This type is used to define the shape of our data.
@@ -148,7 +146,7 @@ export const columns: ColumnDef<Position>[] = [
     },
     cell: ({ row }) => {
       const locations: string[] | undefined = row.getValue("location");
-      if (!locations) {
+      if (!locations || locations.length === 0) {
         return (<div>{""}</div>);
       } else if (locations.length === 1) {
         return (<div>{locations[0]}</div>);

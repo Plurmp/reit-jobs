@@ -130,5 +130,9 @@
     "BRX": {
         "fullName": "Brixmor Property Group",
         "logo": "BRX.png"
+    },
+    "CPT": {
+        "fullName": "Camden Property Trust",
+        "logo": "CPT.svg"
     }
 }

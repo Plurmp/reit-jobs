@@ -1,7 +1,5 @@
 'use client';
 
-import { Authenticator } from '@aws-amplify/ui-react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import { copy, list, ListPaginateWithPathOutput } from 'aws-amplify/storage';
 import Files from '@/components/Files';
@@ -18,7 +16,7 @@ export default async function Upload() {
   try {
     previousResumes = await list({
       path: ({ identityId }) => `resumes/${identityId}/`
-    })
+    });
   } catch (error) {
     previousResumes = undefined;
   }
@@ -36,8 +34,6 @@ export default async function Upload() {
   // }
 
   return (
-    <Authenticator>
-      <UploadResumes previousResumes={previousResumes} />
-    </Authenticator>
+    <UploadResumes previousResumes={previousResumes} />
   );
 }

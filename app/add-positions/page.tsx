@@ -8,16 +8,33 @@ import { z } from "zod";
 
 const client = generateClient<Schema>();
 
-const positionSchema = z.array(
+const parseJsonPreprocessor = (value: any, ctx: z.RefinementCtx) => {
+  if (typeof value === "string") {
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      ctx.addIssue({
+        code: "custom",
+        message: (error as Error).message,
+      });
+    }
+  }
+
+  return value;
+}
+
+const positionShapeSchema = z.array(
   z.object({
-    url: z.string(),
+    url: z.string().url(),
     positionName: z.string(),
-    companyName: z.string().min(1).max(5),
-    publishDate: z.date().optional(),
+    companyName: z.string().max(5),
     location: z.array(z.string()).optional(),
+    publishDate: z.date().optional(),
     description: z.string().optional(),
   })
 );
+
+const positionsSchema = z.preprocess(parseJsonPreprocessor, positionShapeSchema);
 
 export default async function AddPositions() {
   let isAdmin = false;
@@ -43,7 +60,11 @@ export default async function AddPositions() {
 
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;
-    const positions: Position[] = JSON.parse(positionsStr);
+    const {success, error, data: positions} = positionsSchema.safeParse(positionsStr);
+    if (!success) {
+      errorMessage = `Zod Error: ${error}`
+      return;
+    }
     const { data: oldData } = await client.models.Positions.list();
     const oldUrls = new Set(oldData.map((position) => position.url));
     const positionsToInsert = positions.filter(({ url }) => !oldUrls.has(url));

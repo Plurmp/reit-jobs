@@ -21,7 +21,7 @@ const parseJsonPreprocessor = (value: any, ctx: z.RefinementCtx) => {
   }
 
   return value;
-}
+};
 
 const positionShapeSchema = z.array(
   z.object({
@@ -34,7 +34,10 @@ const positionShapeSchema = z.array(
   })
 );
 
-const positionsSchema = z.preprocess(parseJsonPreprocessor, positionShapeSchema);
+const positionsSchema = z.preprocess(
+  parseJsonPreprocessor,
+  positionShapeSchema
+);
 
 export default async function AddPositions() {
   let isAdmin = false;
@@ -60,9 +63,13 @@ export default async function AddPositions() {
 
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;
-    const {success, error, data: positions} = positionsSchema.safeParse(positionsStr);
+    const {
+      success,
+      error,
+      data: positions,
+    } = positionsSchema.safeParse(positionsStr);
     if (!success) {
-      errorMessage = `Zod Error: ${error}`
+      errorMessage = `Zod Error: ${error}`;
       return;
     }
     const { data: oldData } = await client.models.Positions.list();
@@ -93,7 +100,7 @@ export default async function AddPositions() {
   }
 
   return (
-    <div className="rounded-md bg-white text-center font-medium text-3xl">
+    <div className="flex flex-col rounded-md bg-white text-center font-medium text-3xl m-4 p-4">
       <h3 className="text-red-700">{ errorMessage }</h3>
       {!isAdmin ? (
         <p>Access Denied</p>
@@ -103,9 +110,9 @@ export default async function AddPositions() {
             type="text"
             name="positions"
             id="positions"
-            className="resize"
+            className="resize border"
           />
-          <input type="submit" value="submit" />
+          <input type="submit" value="Submit" />
         </form>
       )}
     </div>

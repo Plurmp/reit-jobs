@@ -94,7 +94,7 @@ export default async function AddPositions() {
 
   return (
     <div className="rounded-md bg-white text-center font-medium text-3xl">
-      <h3>{ errorMessage }</h3>
+      <h3 className="text-red-700">{ errorMessage }</h3>
       {!isAdmin ? (
         <p>Access Denied</p>
       ) : (

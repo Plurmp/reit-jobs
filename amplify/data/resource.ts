@@ -18,7 +18,7 @@ const schema = a.schema({
       positionName: a.string().required(),
       companyName: a.string().required(),
       location: a.string().required().array(),
-      publishDate: a.date(),
+      publishDate: a.datetime(),
       description: a.string(),
     })
     .authorization((allow) => [

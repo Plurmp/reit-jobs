@@ -28,7 +28,7 @@ const positionShapeSchema = z.array(
     positionName: z.string(),
     companyName: z.string().max(5),
     location: z.array(z.string()).optional(),
-    publishDate: z.date().optional(),
+    publishDate: z.string().datetime().optional(),
     description: z.string().optional(),
   })
 );

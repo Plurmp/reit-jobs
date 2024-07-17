@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import { runWithAmplifyServerContext } from "@/lib/amplifyServerUtils";
 import { fetchAuthSession } from "aws-amplify/auth/server";
-import { Position } from "../columns";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import { z } from "zod";
@@ -39,7 +38,8 @@ const positionsSchema = z.preprocess(
   positionShapeSchema
 );
 
-export default async function AddPositions() {
+let errorMessage = "";
+export default async function Add() {
   let isAdmin = false;
   let groups: string[] = [];
   try {
@@ -56,11 +56,9 @@ export default async function AddPositions() {
     groups = [];
   }
 
-  let errorMessage = "";
-
   async function createPositions(formData: FormData) {
     "use server";
-
+  
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;
     const {
@@ -71,11 +69,11 @@ export default async function AddPositions() {
     if (!success) {
       errorMessage = `Zod Error: ${error}`;
       return;
-    }
+    } else errorMessage = "";
     const { data: oldData } = await client.models.Positions.list();
     const oldUrls = new Set(oldData.map((position) => position.url));
     const positionsToInsert = positions.filter(({ url }) => !oldUrls.has(url));
-
+  
     await Promise.all(
       positionsToInsert.map(
         async ({
@@ -100,21 +98,30 @@ export default async function AddPositions() {
   }
 
   return (
-    <div className="flex flex-col rounded-md bg-white text-center font-medium text-3xl m-4 p-4">
-      <h3 className="text-red-700">{ errorMessage }</h3>
-      {!isAdmin ? (
-        <p>Access Denied</p>
-      ) : (
-        <form action={createPositions}>
-          <input
-            type="text"
+    <div className="flex flex-col rounded-md bg-white text-center items-center font-medium text-3xl m-4 p-4">
+      <h3 className="text-red-700">{errorMessage}</h3>
+      {/* {!isAdmin ? (
+            <p>Access Denied</p>
+          ) : ( */}
+      <form action={createPositions}>
+        <div className="flex flex-col items-center w-full gap-2">
+          <textarea
             name="positions"
             id="positions"
-            className="resize border"
+            rows={40}
+            cols={150}
+            className="resize border overflow-scroll text-nowrap text-sm"
           />
-          <input type="submit" value="Submit" />
-        </form>
-      )}
+          <div className="border-purple-400 rounded-md bg-blue-500 p-2 text-white">
+            <input
+              type="submit"
+              value="Submit"
+              className="hover:cursor-pointer"
+            />
+          </div>
+        </div>
+      </form>
+      {/* )} */}
     </div>
   );
 }

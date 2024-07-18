@@ -70,10 +70,13 @@ export default async function Add() {
       errorMessage = `Zod Error: ${error}`;
       return;
     } else errorMessage = "";
-    const { data: oldData } = await client.models.Positions.list();
+    const { data: oldData } = await client.models.Positions.list({
+      selectionSet: ["url"]
+    });
     const oldUrls = new Set(oldData.map((position) => position.url));
+    console.log(oldUrls);
     const positionsToInsert = positions.filter(({ url }) => !oldUrls.has(url));
-    console.log(positionsToInsert);
+    // console.log(positionsToInsert);
   
     await Promise.all(
       positionsToInsert.map(

@@ -5,8 +5,6 @@ import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import { z } from "zod";
 
-const client = generateClient<Schema>();
-
 const parseJsonPreprocessor = (value: any, ctx: z.RefinementCtx) => {
   if (typeof value === "string") {
     try {
@@ -42,6 +40,7 @@ let errorMessage = "";
 export default async function Add() {
   let isAdmin = false;
   let groups: string[] = [];
+
   try {
     groups = (await runWithAmplifyServerContext({
       nextServerContext: { cookies },
@@ -58,7 +57,8 @@ export default async function Add() {
 
   async function createPositions(formData: FormData) {
     "use server";
-  
+
+    const client = generateClient<Schema>();
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;
     const {
@@ -73,6 +73,7 @@ export default async function Add() {
     const { data: oldData } = await client.models.Positions.list();
     const oldUrls = new Set(oldData.map((position) => position.url));
     const positionsToInsert = positions.filter(({ url }) => !oldUrls.has(url));
+    console.log(positionsToInsert);
   
     await Promise.all(
       positionsToInsert.map(
@@ -113,11 +114,11 @@ export default async function Add() {
             className="resize border overflow-scroll text-nowrap text-sm"
           />
           <div className="border-purple-400 rounded-md bg-blue-500 p-2 text-white">
-            <input
+            <button
               type="submit"
-              value="Submit"
-              className="hover:cursor-pointer"
-            />
+            >
+              Submit
+            </button>
           </div>
         </div>
       </form>

@@ -23,7 +23,7 @@ const schema = a.schema({
     })
     .authorization((allow) => [
       allow.guest().to(["read"]),
-      allow.group("admin")
+      allow.groups(["admin"])
     ]),
 });
 

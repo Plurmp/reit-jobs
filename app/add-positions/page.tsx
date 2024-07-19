@@ -58,17 +58,23 @@ export default async function Add() {
   async function createPositions(formData: FormData) {
     "use server";
 
-    await runWithAmplifyServerContext({
-      nextServerContext: { cookies },
-      operation: (contextSpec) =>
-        fetchAuthSession(contextSpec).then(
-          (output) => output.tokens?.accessToken.payload["cognito:groups"]
-        ),
-    });
-    await runWithAmplifyServerContext({
-      nextServerContext: { cookies },
-      operation: (contextSpec) => getCurrentUser(contextSpec),
-    });
+    try {
+      const groups = await runWithAmplifyServerContext({
+        nextServerContext: { cookies },
+        operation: (contextSpec) =>
+          fetchAuthSession(contextSpec).then(
+            (output) => output.tokens?.accessToken.payload["cognito:groups"]
+          ),
+      }) as string[];
+      const currentUser = await runWithAmplifyServerContext({
+        nextServerContext: { cookies },
+        operation: (contextSpec) => getCurrentUser(contextSpec),
+      });
+      console.log(groups);
+      console.log(currentUser.username);
+    } catch (e) {
+      console.log(`could not get current user`);
+    }
     const client = generateClient<Schema>();
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;

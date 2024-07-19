@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { runWithAmplifyServerContext } from "@/lib/amplifyServerUtils";
-import { fetchAuthSession } from "aws-amplify/auth/server";
+import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth/server";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import { z } from "zod";
@@ -64,7 +64,11 @@ export default async function Add() {
         fetchAuthSession(contextSpec).then(
           (output) => output.tokens?.accessToken.payload["cognito:groups"]
         ),
-    })
+    });
+    await runWithAmplifyServerContext({
+      nextServerContext: { cookies },
+      operation: (contextSpec) => getCurrentUser(contextSpec),
+    });
     const client = generateClient<Schema>();
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;

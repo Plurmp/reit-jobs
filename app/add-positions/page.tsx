@@ -71,13 +71,13 @@ export default async function Add() {
       return;
     } else errorMessage = "";
     const { data: oldData } = await client.models.Positions.list({
-      selectionSet: ["url"]
+      selectionSet: ["url"],
     });
     const oldUrls = new Set(oldData.map((position) => position.url));
     console.log(oldUrls);
     const positionsToInsert = positions.filter(({ url }) => !oldUrls.has(url));
     // console.log(positionsToInsert);
-  
+
     const errors = await Promise.all(
       positionsToInsert.map(
         async ({
@@ -88,15 +88,20 @@ export default async function Add() {
           publishDate,
           description,
         }) => {
-          const { errors } = await client.models.Positions.create({
-            url,
-            positionName,
-            companyName,
-            location,
-            publishDate: !!publishDate ? publishDate.toString() : null,
-            description,
-          });
-          return errors
+          const { errors } = await client.models.Positions.create(
+            {
+              url,
+              positionName,
+              companyName,
+              location,
+              publishDate: !!publishDate ? publishDate.toString() : null,
+              description,
+            },
+            {
+              authMode: "userPool",
+            }
+          );
+          return errors;
         }
       )
     );
@@ -119,11 +124,7 @@ export default async function Add() {
             className="resize border overflow-scroll text-nowrap text-sm"
           />
           <div className="border-purple-400 rounded-md bg-blue-500 p-2 text-white">
-            <button
-              type="submit"
-            >
-              Submit
-            </button>
+            <button type="submit">Submit</button>
           </div>
         </div>
       </form>

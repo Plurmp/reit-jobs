@@ -58,6 +58,13 @@ export default async function Add() {
   async function createPositions(formData: FormData) {
     "use server";
 
+    await runWithAmplifyServerContext({
+      nextServerContext: { cookies },
+      operation: (contextSpec) =>
+        fetchAuthSession(contextSpec).then(
+          (output) => output.tokens?.accessToken.payload["cognito:groups"]
+        ),
+    })
     const client = generateClient<Schema>();
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;

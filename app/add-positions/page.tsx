@@ -78,7 +78,7 @@ export default async function Add() {
     const positionsToInsert = positions.filter(({ url }) => !oldUrls.has(url));
     // console.log(positionsToInsert);
   
-    await Promise.all(
+    const errors = await Promise.all(
       positionsToInsert.map(
         async ({
           url,
@@ -88,7 +88,7 @@ export default async function Add() {
           publishDate,
           description,
         }) => {
-          await client.models.Positions.create({
+          const { errors } = await client.models.Positions.create({
             url,
             positionName,
             companyName,
@@ -96,9 +96,11 @@ export default async function Add() {
             publishDate: !!publishDate ? publishDate.toString() : null,
             description,
           });
+          return errors
         }
       )
     );
+    console.log(errors);
   }
 
   return (

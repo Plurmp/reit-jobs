@@ -111,24 +111,24 @@ export default async function Add() {
   return (
     <div className="flex flex-col rounded-md bg-white text-center items-center font-medium text-3xl m-4 p-4">
       <h3 className="text-red-700">{errorMessage}</h3>
-      {/* {!isAdmin ? (
-            <p>Access Denied</p>
-          ) : ( */}
-      <form action={createPositions}>
-        <div className="flex flex-col items-center w-full gap-2">
-          <textarea
-            name="positions"
-            id="positions"
-            rows={40}
-            cols={150}
-            className="resize border overflow-scroll text-nowrap text-sm"
-          />
-          <div className="border-purple-400 rounded-md bg-blue-500 p-2 text-white">
-            <button type="submit">Submit</button>
+      {!isAdmin ? (
+        <p>Access Denied</p>
+      ) : (
+        <form action={createPositions}>
+          <div className="flex flex-col items-center w-full gap-2">
+            <textarea
+              name="positions"
+              id="positions"
+              rows={40}
+              cols={150}
+              className="resize border overflow-scroll text-nowrap text-sm"
+            />
+            <div className="border-purple-400 rounded-md bg-blue-500 p-2 text-white">
+              <button type="submit">Submit</button>
+            </div>
           </div>
-        </div>
-      </form>
-      {/* )} */}
+        </form>
+      )}
     </div>
   );
 }

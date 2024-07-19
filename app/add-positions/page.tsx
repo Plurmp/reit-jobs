@@ -4,6 +4,8 @@ import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth/server";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import { z } from "zod";
+import { Amplify } from "aws-amplify";
+import outputs from "@/amplify_outputs.json"
 
 const parseJsonPreprocessor = (value: any, ctx: z.RefinementCtx) => {
   if (typeof value === "string") {
@@ -57,6 +59,8 @@ export default async function Add() {
 
   async function createPositions(formData: FormData) {
     "use server";
+
+    Amplify.configure(outputs);
 
     try {
       const groups = await runWithAmplifyServerContext({

@@ -76,7 +76,8 @@ export default async function Add() {
             }
           }
         }
-      }
+      }, 
+      ssr: true
     });
 
     try {

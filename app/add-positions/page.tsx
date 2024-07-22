@@ -60,7 +60,24 @@ export default async function Add() {
   async function createPositions(formData: FormData) {
     "use server";
 
-    Amplify.configure(outputs);
+    Amplify.configure(outputs, {
+      API: {
+        GraphQL: {
+          headers: async () => {
+            const currentSession = await runWithAmplifyServerContext({
+              nextServerContext: { cookies },
+              operation: (contextSpec) => fetchAuthSession(contextSpec),
+            })
+            if (currentSession.tokens) {
+              const idToken = currentSession.tokens.idToken?.toString();
+              return { Authorization: idToken }
+            } else {
+              return { Authorization: undefined };
+            }
+          }
+        }
+      }
+    });
 
     try {
       const groups = await runWithAmplifyServerContext({

@@ -97,7 +97,7 @@ export default async function Add() {
     } catch (e) {
       console.log(`could not get current user`);
     }
-    const client = generateClient<Schema>();
+    const client = generateClient<Schema>()
     const positionsStr = formData.get("positions")?.toString();
     if (!positionsStr) return;
     const {
@@ -135,9 +135,6 @@ export default async function Add() {
               location,
               publishDate: !!publishDate ? publishDate.toString() : null,
               description,
-            },
-            {
-              authMode: "userPool",
             }
           );
           return errors;

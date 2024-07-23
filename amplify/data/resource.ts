@@ -22,7 +22,7 @@ const schema = a.schema({
       description: a.string(),
     })
     .authorization((allow) => [
-      allow.guest().to(["read", "create"])
+      allow.guest()
     ]),
 });
 

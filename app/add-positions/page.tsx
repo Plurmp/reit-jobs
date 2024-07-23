@@ -135,6 +135,9 @@ export default async function Add() {
               location,
               publishDate: !!publishDate ? publishDate.toString() : null,
               description,
+            },
+            {
+              authMode: "iam"
             }
           );
           return errors;

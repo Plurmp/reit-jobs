@@ -61,22 +61,22 @@ export default async function Add() {
     "use server";
 
     Amplify.configure(outputs, {
-      API: {
-        GraphQL: {
-          headers: async () => {
-            const currentSession = await runWithAmplifyServerContext({
-              nextServerContext: { cookies },
-              operation: (contextSpec) => fetchAuthSession(contextSpec),
-            })
-            if (currentSession.tokens) {
-              const idToken = currentSession.tokens.idToken?.toString();
-              return { Authorization: idToken }
-            } else {
-              return { Authorization: undefined };
-            }
-          }
-        }
-      }, 
+      // API: {
+      //   GraphQL: {
+      //     headers: async () => {
+      //       const currentSession = await runWithAmplifyServerContext({
+      //         nextServerContext: { cookies },
+      //         operation: (contextSpec) => fetchAuthSession(contextSpec),
+      //       })
+      //       if (currentSession.tokens) {
+      //         const idToken = currentSession.tokens.idToken?.toString();
+      //         return { Authorization: idToken }
+      //       } else {
+      //         return { Authorization: undefined };
+      //       }
+      //     }
+      //   }
+      // }, 
       ssr: true
     });
 

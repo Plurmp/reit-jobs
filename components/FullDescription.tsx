@@ -9,12 +9,14 @@ import { companyInfo, SponsorLevel } from "@/app/columns";
 import { Position } from "@/app/columns";
 import { newlineToBreak } from "@/lib/newlineToBreak";
 import { Button } from "./ui/button";
+import { generateClient } from "aws-amplify/api";
+import type { Schema } from "@/amplify/data/resource";
 
 interface FullDescriptionProps {
   table: Table<Position>;
 }
 
-export function FullDescription({ table }: FullDescriptionProps) {
+export async function FullDescription({ table }: FullDescriptionProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const modal = searchParams.get("fullDesc");
@@ -30,6 +32,18 @@ export function FullDescription({ table }: FullDescriptionProps) {
   const logo = companyInfo[companyName]?.logo;
   const sponsorLevel = companyInfo[companyName]?.sponsorLevel;
   const sponsorLevelStr = (sponsorLevel !== undefined ? SponsorLevel[sponsorLevel] : "").toUpperCase();
+
+  const client = generateClient<Schema>();
+  const { data: dataPosition } = await client.models.Positions.list({
+    filter: {
+      url: {
+        eq: row.url
+      }
+    },
+    selectionSet: ["description"]
+  })
+
+  const description = dataPosition?.[0].description ?? undefined;
 
   return (
     <>
@@ -59,7 +73,7 @@ export function FullDescription({ table }: FullDescriptionProps) {
                   Apply Here
                 </Button>
               </Link>
-              <div className="m-8">{newlineToBreak(row.description)}</div>
+              <div className="m-8">{newlineToBreak(description)}</div>
             </div>
           </div>
         </dialog>

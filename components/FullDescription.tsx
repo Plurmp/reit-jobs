@@ -1,22 +1,23 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { CircleX } from "lucide-react";
+import { CircleX, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams, usePathname } from "next/navigation";
+import { Suspense } from "react";
 
 import { companyInfo, SponsorLevel } from "@/app/columns";
 import { Position } from "@/app/columns";
-import { newlineToBreak } from "@/lib/newlineToBreak";
 import { Button } from "./ui/button";
-import { generateClient } from "aws-amplify/api";
-import type { Schema } from "@/amplify/data/resource";
+import { loadDescription } from "@/lib/loadDescription";
+import React from "react";
+import { newlineToBreak } from "@/lib/newlineToBreak";
 
 interface FullDescriptionProps {
   table: Table<Position>;
 }
 
-export async function FullDescription({ table }: FullDescriptionProps) {
+export async function FullDescription({ table }: FullDescriptionProps, { children }: Readonly<{children: React.ReactNode}>) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const modal = searchParams.get("fullDesc");
@@ -33,17 +34,7 @@ export async function FullDescription({ table }: FullDescriptionProps) {
   const sponsorLevel = companyInfo[companyName]?.sponsorLevel;
   const sponsorLevelStr = (sponsorLevel !== undefined ? SponsorLevel[sponsorLevel] : "").toUpperCase();
 
-  const client = generateClient<Schema>();
-  const { data: dataPosition } = await client.models.Positions.list({
-    filter: {
-      url: {
-        eq: row.url
-      }
-    },
-    selectionSet: ["description"]
-  })
-
-  const description = dataPosition?.[0].description ?? undefined;
+  const description = await loadDescription(row.url)
 
   return (
     <>
@@ -73,7 +64,11 @@ export async function FullDescription({ table }: FullDescriptionProps) {
                   Apply Here
                 </Button>
               </Link>
-              <div className="m-8">{newlineToBreak(description)}</div>
+              <div className="m-8">
+                <Suspense fallback={<LoaderCircle />}>
+                  <p>{newlineToBreak(description)}</p>
+                </Suspense>
+              </div>
             </div>
           </div>
         </dialog>

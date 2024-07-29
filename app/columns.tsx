@@ -85,6 +85,7 @@ export const columns: ColumnDef<Position>[] = [
         <>
           <Link 
             href={href.toString()}
+            scroll={false}
           >
             <div className="rounded-md hover:bg-accent/50 p-4 font-bold transition-colors">
               {position.positionName}

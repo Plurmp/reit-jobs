@@ -2,6 +2,7 @@
 
 import { ColumnDef, RowExpanding } from "@tanstack/react-table";
 import { MoreHorizontal, ArrowUpDown, Link2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -75,9 +76,10 @@ export const columns: ColumnDef<Position>[] = [
         </Button>
       );
     },
-    cell: ({ row, table }) => {
+    cell: ({ row }) => {
       const position = row.original;
-      let href = new URL("/");
+      const pathname = usePathname();
+      let href = new URL("/", pathname);
       href.searchParams.set("fullDesc", "true");
       href.searchParams.set("url", position.url);
       return (

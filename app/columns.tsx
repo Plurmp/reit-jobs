@@ -48,7 +48,6 @@ export const companyInfo = _companyInfo as ICompanyInfo;
 
 import { isWithinRange, locationFilter } from "@/lib/filterFns";
 
-import { Suspense } from "react";
 import { sponsorSort } from "@/lib/sortingFns";
 
 export const columns: ColumnDef<Position>[] = [
@@ -78,18 +77,18 @@ export const columns: ColumnDef<Position>[] = [
     },
     cell: ({ row, table }) => {
       const position = row.original;
+      let href = new URL("/");
+      href.searchParams.set("fullDesc", "true");
+      href.searchParams.set("url", position.url);
       return (
         <>
           <Link 
-            href={`?fullDesc=true&rowID=${row.id}`}
+            href={href.toString()}
           >
             <div className="rounded-md hover:bg-accent/50 p-4 font-bold transition-colors">
               {position.positionName}
             </div>
           </Link>
-          <Suspense>
-            <FullDescription table={table}/>
-          </Suspense>
         </>
       );
     },

@@ -77,6 +77,8 @@ export const columns: ColumnDef<Position>[] = [
       );
     },
     cell: ({ row }) => {
+      "use client"
+
       const position = row.original;
       const pathname = usePathname();
       let href = new URL("/", pathname);

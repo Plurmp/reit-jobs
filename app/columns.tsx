@@ -51,6 +51,8 @@ import { isWithinRange, locationFilter } from "@/lib/filterFns";
 
 import { sponsorSort } from "@/lib/sortingFns";
 
+const pathname = usePathname();
+
 export const columns: ColumnDef<Position>[] = [
   {
     id: "link",
@@ -77,10 +79,7 @@ export const columns: ColumnDef<Position>[] = [
       );
     },
     cell: ({ row }) => {
-      "use client"
-
       const position = row.original;
-      const pathname = usePathname();
       let href = new URL("/", pathname);
       href.searchParams.set("fullDesc", "true");
       href.searchParams.set("url", position.url);

@@ -8,6 +8,7 @@ import _positions from "@/positions.json";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import { FullDescription } from "@/components/FullDescription";
+import FullDescriptionPlaceholder from "@/components/FullDescriptionPlaceholder";
 
 Amplify.configure(outputs, { ssr: true });
 
@@ -61,7 +62,7 @@ const Home = async (props: Props) => {
       <DataTable columns={columns} data={data} />
       
       {modal && rowUrl && (
-        <Suspense>
+        <Suspense fallback={<FullDescriptionPlaceholder />}>
           <FullDescription rowUrl={rowUrl} />
         </Suspense>
       )}

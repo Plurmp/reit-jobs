@@ -17,14 +17,13 @@ const schema = a.schema({
       url: a.string().required(),
       positionName: a.string().required(),
       companyName: a.string().required(),
-      location: a.string().array(),
-      publishDate: a.date(),
+      location: a.string().required().array(),
+      publishDate: a.datetime(),
       description: a.string(),
     })
     .authorization((allow) => [
-      allow.guest().to(["read"]),
-      allow.group("admin")
-    ])
+      allow.guest()
+    ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -32,8 +31,8 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
-  },
+    defaultAuthorizationMode: "iam",
+  }
 });
 
 /*== STEP 2 ===============================================================

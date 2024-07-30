@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { Amplify } from 'aws-amplify';
 import outputs from '@/amplify_outputs.json';
+import { Toaster } from "@/components/ui/toaster";
 
 Amplify.configure(outputs, { ssr: true });
 
@@ -27,9 +28,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="max-w-10xl mx-auto min-h-screen bg-dallas-skyline bg-cover h-full">
           <Navbar>
-            <ProfileDropdown/>
+            <ProfileDropdown />
           </Navbar>
           {children}
+          <Toaster />
         </main>
       </body>
     </html>

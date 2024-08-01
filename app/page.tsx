@@ -55,7 +55,7 @@ const Home = async (props: Props) => {
     }
   );
 
-  const data = positions;
+  const data = positionsFromFile;
 
   return (
     <div>

@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import { DataTable } from "@/components/DataTable";
 import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
-import _positions from "@/positions.json";
+import _positions from "@/oldVersionPositions.json";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import { FullDescription } from "@/components/FullDescription";

@@ -221,5 +221,9 @@
     "FSP": {
         "fullName": "Franklin Street Properties",
         "logo": "FSP.png"
+    },
+    "CPT": {
+        "fullName": "Camden Property Trust",
+        "logo": "CPT.svg"
     }
 }

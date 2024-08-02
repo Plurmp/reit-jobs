@@ -78,7 +78,7 @@ export const columns: ColumnDef<Position>[] = [
     },
     cell: ({ row }) => {
       const position = row.original;
-      let href = new URL("/", "https://data.drbpkl8cvi3or.amplifyapp.com");
+      let href = new URL("/", "https://allthereitjobs.com");
       href.searchParams.set("fullDesc", "true");
       href.searchParams.set("url", position.url);
       return (

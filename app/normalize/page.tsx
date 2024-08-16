@@ -53,14 +53,18 @@ export default async function Normalize() {
     const { data } = await client.models.Positions.list();
     let previousUrls = new Set<string>();
     let filteredData: typeof data = []
+    console.log(data.map(p => p.url));
     data.forEach(async (position) => {
       if (previousUrls.has(position.url)) {
+        console.log(`Deleting ${position.id}`);
         await client.models.Positions.delete({ id: position.id });
         return;
       }
+      console.log(`Unique position ${position.positionName}: ${position.id}`);
       previousUrls.add(position.url);
       filteredData.push(position);
     })
+    // console.log(filteredData);
     filteredData.forEach(async (position) => {
       if (position.location !== null) {
         const newLocation = normalizeLocation(position.location);

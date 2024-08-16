@@ -53,7 +53,8 @@ export default async function Normalize() {
     const { data } = await client.models.Positions.list();
     let previousUrls = new Set<string>();
     let filteredData: typeof data = []
-    console.log(data.map(p => p.url));
+    console.log(data.map(p => p.url).toSorted());
+    console.log(`Length of data: ${data.length}`);
     data.forEach(async (position) => {
       if (previousUrls.has(position.url)) {
         console.log(`Deleting ${position.id}`);

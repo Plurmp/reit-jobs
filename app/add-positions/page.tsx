@@ -113,7 +113,7 @@ export default async function Add() {
       selectionSet: ["url"],
     });
     const oldUrls = new Set(oldData.map((position) => position.url));
-    console.log(oldUrls);
+    // console.log(oldUrls);
     const positionsToInsert = positions.filter(({ url }) => !oldUrls.has(url));
     // console.log(positionsToInsert);
 

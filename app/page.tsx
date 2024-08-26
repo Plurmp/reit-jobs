@@ -60,6 +60,8 @@ const Home = async (props: Props) => {
       nextToken: token
     });
     rawPositions = rawPositions.concat(thesePositions);
+    console.log("number of positions: " + rawPositions.length);
+    console.log("next token: " + nextToken);
     token = nextToken;
   }
 

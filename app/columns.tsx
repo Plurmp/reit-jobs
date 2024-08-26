@@ -157,7 +157,7 @@ export const columns: ColumnDef<Position>[] = [
           <div>
             {locations[0]} 
             <Link 
-              href={`?fullDesc=true&rowID=${row.id}`}
+              href={`?fullDesc=true&url=${row.getValue("url")}`}
               className="font-semibold"
             >
               {" "} and {locations.length - 1} other{locations.length > 2 ? "(s)" : ""}

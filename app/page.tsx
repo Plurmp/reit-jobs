@@ -41,6 +41,7 @@ const Home = async (props: Props) => {
       "location",
       "publishDate",
     ],
+    limit: 5000
   });
   console.log("number of positions: " + rawPositions.length)
 

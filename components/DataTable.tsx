@@ -314,7 +314,11 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    data-sponsor={"n" + companyInfo[row.getValue("companyName") as string].sponsorLevel}
+                    data-sponsor={
+                      companyInfo[row.getValue("companyName") as string] 
+                      ? "n" + companyInfo[row.getValue("companyName") as string].sponsorLevel 
+                      : ""
+                    }
                     className="bg-sponsor-color"
                   >
                     {row.getVisibleCells().map((cell) => (

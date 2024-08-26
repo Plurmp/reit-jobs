@@ -225,5 +225,9 @@
     "CPT": {
         "fullName": "Camden Property Trust",
         "logo": "CPT.svg"
+    },
+    "CDP": {
+        "fullName": "COPT Defense Properties",
+        "logo": "CDP.svg"
     }
 }

@@ -42,6 +42,7 @@ const Home = async (props: Props) => {
       "publishDate",
     ],
   });
+  console.log("number of positions: " + rawPositions.length)
 
   const positions = rawPositions.map(
     ({ url, positionName, companyName, location, publishDate }): Position => {

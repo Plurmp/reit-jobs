@@ -99,7 +99,7 @@ export const columns: ColumnDef<Position>[] = [
     id: "companyLogo",
     cell: ({ row }) => {
       const companyName: string = row.getValue("companyName");
-      const logo = companyInfo[companyName].logo;
+      const logo = companyInfo[companyName]?.logo;
 
       return (
         <div className="flex justify-center">

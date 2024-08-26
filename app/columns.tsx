@@ -183,8 +183,9 @@ export const columns: ColumnDef<Position>[] = [
     },
     cell: ({ row }) => {
       const dateStr = row.getValue("publishDate");
-      if (dateStr === "") return <div>None</div>;
+      if (dateStr === "") return <div></div>;
       const date = new Date(row.getValue("publishDate"));
+      if (isNaN(date.getTime())) return <div></div>;
       const formatted = date.toLocaleDateString();
       return <div>{formatted}</div>;
     },

@@ -48,7 +48,7 @@ const Home = async (props: Props) => {
   console.log("number of positions: " + rawPositions.length);
   console.log("next token: " + nextToken);
   while (nextToken !== undefined) {
-    const { data: thesePositions, errors, nextToken } = await client.models.Positions.list({
+    const { data: thesePositions, errors, nextToken: thisToken } = await client.models.Positions.list({
       selectionSet: [
         "url",
         "positionName",
@@ -61,8 +61,8 @@ const Home = async (props: Props) => {
     });
     rawPositions = rawPositions.concat(thesePositions);
     console.log("number of positions: " + rawPositions.length);
-    console.log("next token: " + nextToken);
-    token = nextToken;
+    console.log("next token: " + thisToken);
+    token = thisToken;
   }
 
   const positions = rawPositions.map(

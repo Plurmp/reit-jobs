@@ -33,7 +33,7 @@ const Home = async (props: Props) => {
   const modal = props.searchParams?.fullDesc === "true";
   const rowUrl = props.searchParams?.url;
 
-  const { data: rawPositions, errors } = await client.models.Positions.list({
+  const { data: rawPositions, errors, nextToken } = await client.models.Positions.list({
     selectionSet: [
       "url",
       "positionName",
@@ -43,7 +43,8 @@ const Home = async (props: Props) => {
     ],
     limit: 5000
   });
-  console.log("number of positions: " + rawPositions.length)
+  console.log("number of positions: " + rawPositions.length);
+  console.log("next token: " + nextToken);
 
   const positions = rawPositions.map(
     ({ url, positionName, companyName, location, publishDate }): Position => {

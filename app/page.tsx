@@ -45,8 +45,8 @@ const Home = async (props: Props) => {
   });
   let rawPositions = [...thesePositions]
   let token = nextToken;
-  console.log("number of positions: " + rawPositions.length);
-  console.log("next token: " + nextToken);
+  // console.log("number of positions: " + rawPositions.length);
+  // console.log("next token: " + nextToken);
   while (!!token) {
     const { data: thesePositions, errors, nextToken: thisToken } = await client.models.Positions.list({
       selectionSet: [
@@ -60,8 +60,8 @@ const Home = async (props: Props) => {
       nextToken: token
     });
     rawPositions = rawPositions.concat(thesePositions);
-    console.log("number of positions: " + rawPositions.length);
-    console.log("next token: " + thisToken);
+    // console.log("number of positions: " + rawPositions.length);
+    // console.log("next token: " + thisToken);
     token = thisToken;
   }
 

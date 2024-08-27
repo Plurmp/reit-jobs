@@ -147,17 +147,21 @@ export const columns: ColumnDef<Position>[] = [
       );
     },
     cell: ({ row }) => {
-      const locations: string[] | undefined = row.getValue("location");
+      const position = row.original
+      const locations: string[] | undefined = position.location;
       if (!locations) {
         return (<div>{""}</div>);
       } else if (locations.length === 1) {
         return (<div>{locations[0]}</div>);
       } else {
+        let href = new URL("/", "https://www.allthereitjobs.com");
+        href.searchParams.set("fullDesc", "true");
+        href.searchParams.set("url", position.url);
         return (
           <div>
             {locations[0]} 
             <Link 
-              href={`?fullDesc=true&url=${row.getValue("url")}`}
+              href={href.toString()}
               className="font-semibold"
             >
               {" "} and {locations.length - 1} other{locations.length > 2 ? "(s)" : ""}

@@ -23,7 +23,7 @@ const Navbar = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
                             alt='AllTheREITJobs logo'
                         />
                     </div>
-                    <h1 className='text-xl font-bold'>AllTheReitJobs</h1>
+                    <h1 className='text-xl font-bold'>AllTheREITJobs</h1>
                     <p className='text-xs font-extralight italic'>Every REIT job<br />in one place</p>
                 </Link>
                 <p className='text-md font-semibold text-red-700'>

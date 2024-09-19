@@ -12,6 +12,9 @@ export async function GET(request: Request) {
   Amplify.configure(outputs, { ssr: true });
 
   let nextToken = request.headers.get("nextToken");
+  if (nextToken === "None" || nextToken === "") {
+    nextToken = null;
+  } 
 
   const {
     data: rawPositions,

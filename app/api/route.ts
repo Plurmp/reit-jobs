@@ -3,18 +3,16 @@ import outputs from "@/amplify_outputs.json";
 import { generateClient } from "aws-amplify/data";
 import { Schema } from "@/amplify/data/resource";
 import { Position } from "../columns";
+import { NextRequest } from "next/server";
 
 const client = generateClient<Schema>();
 
 export const dynamic = "force-static";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   Amplify.configure(outputs, { ssr: true });
 
-  let nextToken = request.headers.get("nextToken");
-  if (nextToken === "None" || nextToken === "") {
-    nextToken = null;
-  } 
+  let nextToken = request.nextUrl.searchParams.get("nextToken");
 
   const {
     data: rawPositions,

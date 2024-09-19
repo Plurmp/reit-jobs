@@ -8,14 +8,17 @@ const client = generateClient<Schema>();
 
 export const dynamic = "force-static";
 
-export async function GET(_: Request) {
+export async function GET(request: Request) {
   Amplify.configure(outputs, { ssr: true });
 
+  let nextToken = request.headers.get("nextToken");
+
   const {
-    data: thesePositions,
+    data: rawPositions,
     errors,
-    nextToken,
+    nextToken: newNextToken,
   } = await client.models.Positions.list({
+    nextToken,
     selectionSet: [
       "url",
       "positionName",
@@ -24,47 +27,27 @@ export async function GET(_: Request) {
       "publishDate",
       "description",
     ],
-    limit: 5000,
+    limit: 100,
   });
-  let rawPositions = [...thesePositions];
-  let token = nextToken;
-  // console.log("number of positions: " + rawPositions.length);
-  // console.log("next token: " + nextToken);
-  while (!!token) {
-    const {
-      data: thesePositions,
-      errors,
-      nextToken: thisToken,
-    } = await client.models.Positions.list({
-      selectionSet: [
-        "url",
-        "positionName",
-        "companyName",
-        "location",
-        "publishDate",
-        "description",
-      ],
-      limit: 5000,
-      nextToken: token,
-    });
-    rawPositions = rawPositions.concat(thesePositions);
-    // console.log("number of positions: " + rawPositions.length);
-    // console.log("next token: " + thisToken);
-    token = thisToken;
-  }
-  const positions: Position[] = rawPositions.map((p): Position => {
-    return {
-      url: p.url,
-      positionName: p.positionName,
-      companyName: p.companyName,
-      location: p.location ?? undefined,
-      publishDate: !!p.publishDate ? new Date(p.publishDate) : undefined,
-      description: p.description ?? undefined,
-    };
-  });
-  const data = {
-    positions: positions,
-  };
 
-  return Response.json({ data });
+  if (!!errors) {
+    return Response.json(errors, { status: 500 });
+  }
+
+  const positions = rawPositions.map(
+    (p) =>
+      <Position>{
+        url: p.url,
+        positionName: p.positionName,
+        companyName: p.companyName,
+        location: p.location,
+        publishDate: !!p.publishDate ? new Date(p.publishDate) : undefined,
+        description: p.description,
+      }
+  );
+
+  return Response.json({
+    positions: positions,
+    nextToken: newNextToken,
+  });
 }

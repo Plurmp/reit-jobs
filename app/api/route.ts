@@ -50,5 +50,6 @@ export async function GET(request: NextRequest) {
   return Response.json({
     positions: positions,
     nextToken: newNextToken,
+    recievedNextToken: nextToken,
   });
 }

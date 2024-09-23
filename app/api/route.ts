@@ -4,7 +4,7 @@ import { generateClient } from "aws-amplify/data";
 import { Schema } from "@/amplify/data/resource";
 import { Position } from "../columns";
 import { NextRequest } from "next/server";
-import { useParams } from "next/navigation"
+import { useParams } from "next/navigation";
 
 const client = generateClient<Schema>();
 
@@ -53,5 +53,6 @@ export async function GET(request: NextRequest) {
     positions: positions,
     nextToken: newNextToken,
     recievedNextToken: params,
+    params: params,
   });
 }

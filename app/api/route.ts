@@ -4,7 +4,7 @@ import { generateClient } from "aws-amplify/data";
 import { Schema } from "@/amplify/data/resource";
 import { Position } from "../columns";
 import { NextRequest } from "next/server";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const client = generateClient<Schema>();
 
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   Amplify.configure(outputs, { ssr: true });
 
   let nextToken = request.nextUrl.searchParams.get("nextToken");
-  const params = useParams();
+  const params = useSearchParams();
 
   const {
     data: rawPositions,

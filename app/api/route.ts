@@ -8,13 +8,12 @@ import { headers } from "next/headers";
 
 const client = generateClient<Schema>();
 
-export const dynamic = "force-static";
-
 export async function GET(request: NextRequest) {
   Amplify.configure(outputs, { ssr: true });
 
-  let nextToken = request.nextUrl.searchParams.get("nextToken");
+  // let nextToken = request.nextUrl.searchParams.get("nextToken");
   const theseHeaders = headers();
+  const nextToken = theseHeaders.get("nextToken");
 
   const {
     data: rawPositions,
@@ -52,6 +51,7 @@ export async function GET(request: NextRequest) {
   return Response.json({
     positions: positions,
     nextToken: newNextToken,
-    headers: theseHeaders,
+    recievedNextToken: nextToken,
+    headers: theseHeaders.entries(),
   });
 }

@@ -4,6 +4,7 @@ import { generateClient } from "aws-amplify/data";
 import { Schema } from "@/amplify/data/resource";
 import { Position } from "../columns";
 import { NextRequest } from "next/server";
+import { headers } from "next/headers";
 
 const client = generateClient<Schema>();
 
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
   Amplify.configure(outputs, { ssr: true });
 
   let nextToken = request.nextUrl.searchParams.get("nextToken");
-  const headers = request.headers;
+  const theseHeaders = headers();
 
   const {
     data: rawPositions,
@@ -51,6 +52,6 @@ export async function GET(request: NextRequest) {
   return Response.json({
     positions: positions,
     nextToken: newNextToken,
-    headers: headers,
+    headers: theseHeaders,
   });
 }
